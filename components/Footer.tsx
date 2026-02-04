@@ -49,16 +49,31 @@ export default function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 mb-4">
-              Cidades Atendidas
+              Buscas rápidas
             </h4>
             <ul className="space-y-3 text-sm">
+              <li>
+                <Link href="/imoveis?tipo=casa" className="text-neutral-400 hover:text-white transition-colors duration-200">
+                  Casas
+                </Link>
+              </li>
+              <li>
+                <Link href="/imoveis?tipo=apartamento" className="text-neutral-400 hover:text-white transition-colors duration-200">
+                  Apartamentos
+                </Link>
+              </li>
+              <li>
+                <Link href="/imoveis?tipo=terreno" className="text-neutral-400 hover:text-white transition-colors duration-200">
+                  Terrenos
+                </Link>
+              </li>
               {cidades.map((cidade) => (
                 <li key={cidade.slug}>
                   <Link
                     href={`/imoveis?cidade=${cidade.slug}`}
                     className="text-neutral-400 hover:text-white transition-colors duration-200"
                   >
-                    {cidade.nome}
+                    Imóveis em {cidade.nome}
                   </Link>
                 </li>
               ))}
@@ -70,8 +85,22 @@ export default function Footer() {
               Contato
             </h4>
             <ul className="space-y-3 text-sm text-neutral-400">
-              <li>Email: contato@phsilva.com.br</li>
+              <li>
+                <a href="mailto:contato@phsilva.com.br" className="text-neutral-400 hover:text-white transition-colors duration-200">
+                  contato@phsilva.com.br
+                </a>
+              </li>
               <li>Telefone: (11) 99999-9999</li>
+              <li>
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511999999999'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-neutral-400 hover:text-white transition-colors duration-200 inline-flex items-center gap-1"
+                >
+                  WhatsApp
+                </a>
+              </li>
             </ul>
           </div>
         </div>

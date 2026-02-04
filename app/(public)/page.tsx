@@ -51,17 +51,20 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-24 md:py-28">
+      {/* Hero com busca integrada */}
+      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 leading-tight">
-              Encontre o Imóvel dos Seus Sonhos
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed">
-              Casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-4 leading-tight">
+                Encontre o Imóvel dos Seus Sonhos
+              </h1>
+              <p className="text-base md:text-lg text-white/90 leading-relaxed">
+                Casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região
+              </p>
+            </div>
+            <HomeBuscaRapida variant="hero" />
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
               <Link href="/imoveis">
                 <Button size="lg" variant="secondary">
                   Ver Imóveis
@@ -77,14 +80,49 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Busca Rápida */}
-      <section className="py-14 bg-neutral-50">
+      {/* Buscas populares */}
+      <section className="py-12 md:py-14 bg-white border-b border-neutral-100">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold font-heading text-center mb-8 text-neutral-900">
-              Busca Rápida
-            </h2>
-            <HomeBuscaRapida />
+          <h2 className="text-xl md:text-2xl font-bold font-heading mb-6 text-neutral-900">
+            Buscas populares
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/imoveis?cidade=igarata&operacao=venda&tipo=casa"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Casas à venda em Igaratá
+            </Link>
+            <Link
+              href="/imoveis?cidade=mogi-das-cruzes&tipo=apartamento"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Apartamentos em Mogi das Cruzes
+            </Link>
+            <Link
+              href="/imoveis?cidade=santa-isabel&operacao=aluguel"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Imóveis para alugar em Santa Isabel
+            </Link>
+            <Link
+              href="/imoveis?tipo=terreno&operacao=venda"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Terrenos à venda
+            </Link>
+            <Link
+              href="/imoveis?operacao=venda"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Todos à venda
+            </Link>
+            <Link
+              href="/imoveis?operacao=aluguel"
+              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              Todos para alugar
+            </Link>
           </div>
         </div>
       </section>
@@ -166,7 +204,7 @@ export default async function HomePage() {
               <Link key={cidade.slug} href={`/imoveis?cidade=${cidade.slug}`}>
                 <Card hover className="p-6 md:p-8 text-center h-full">
                   <h3 className="text-xl font-semibold font-heading text-primary">{cidade.nome}</h3>
-                  <p className="text-neutral-600 mt-2 text-sm">Ver imóveis disponíveis</p>
+                  <p className="text-neutral-600 mt-2 text-sm">Ver imóveis em {cidade.nome}</p>
                 </Card>
               </Link>
             ))}

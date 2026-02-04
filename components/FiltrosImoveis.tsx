@@ -42,8 +42,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Cidade</label>
+          <label htmlFor="filtro-cidade" className="block text-sm font-medium text-neutral-700 mb-1.5">Cidade</label>
           <select
+            id="filtro-cidade"
             value={filtros.cidade || ''}
             onChange={(e) => handleFilterChange('cidade', e.target.value || undefined)}
             className={selectClass}
@@ -56,8 +57,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Tipo</label>
+          <label htmlFor="filtro-tipo" className="block text-sm font-medium text-neutral-700 mb-1.5">Tipo</label>
           <select
+            id="filtro-tipo"
             value={filtros.tipo || ''}
             onChange={(e) => handleFilterChange('tipo', e.target.value || undefined)}
             className={selectClass}
@@ -71,8 +73,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Operação</label>
+          <label htmlFor="filtro-operacao" className="block text-sm font-medium text-neutral-700 mb-1.5">Operação</label>
           <select
+            id="filtro-operacao"
             value={filtros.operacao || ''}
             onChange={(e) => handleFilterChange('operacao', e.target.value || undefined)}
             className={selectClass}
@@ -84,8 +87,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Preço Mínimo</label>
+          <label htmlFor="filtro-preco-min" className="block text-sm font-medium text-neutral-700 mb-1.5">Preço Mínimo</label>
           <Input
+            id="filtro-preco-min"
             type="number"
             value={filtros.preco_min ?? ''}
             onChange={(e) => handleFilterChange('preco_min', e.target.value ? parseFloat(e.target.value) : undefined)}
@@ -94,8 +98,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Preço Máximo</label>
+          <label htmlFor="filtro-preco-max" className="block text-sm font-medium text-neutral-700 mb-1.5">Preço Máximo</label>
           <Input
+            id="filtro-preco-max"
             type="number"
             value={filtros.preco_max ?? ''}
             onChange={(e) => handleFilterChange('preco_max', e.target.value ? parseFloat(e.target.value) : undefined)}
@@ -104,8 +109,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Quartos</label>
+          <label htmlFor="filtro-quartos" className="block text-sm font-medium text-neutral-700 mb-1.5">Quartos</label>
           <Input
+            id="filtro-quartos"
             type="number"
             min={1}
             value={filtros.quartos ?? ''}
@@ -115,8 +121,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Banheiros</label>
+          <label htmlFor="filtro-banheiros" className="block text-sm font-medium text-neutral-700 mb-1.5">Banheiros</label>
           <Input
+            id="filtro-banheiros"
             type="number"
             min={1}
             value={filtros.banheiros ?? ''}
@@ -126,8 +133,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Vagas</label>
+          <label htmlFor="filtro-vagas" className="block text-sm font-medium text-neutral-700 mb-1.5">Vagas</label>
           <Input
+            id="filtro-vagas"
             type="number"
             min={1}
             value={filtros.vagas ?? ''}
@@ -137,8 +145,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">Buscar</label>
+          <label htmlFor="filtro-busca" className="block text-sm font-medium text-neutral-700 mb-1.5">Buscar</label>
           <Input
+            id="filtro-busca"
             type="text"
             value={filtros.busca ?? ''}
             onChange={(e) => handleFilterChange('busca', e.target.value || undefined)}

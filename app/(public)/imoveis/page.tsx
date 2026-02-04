@@ -1,7 +1,11 @@
 import { Metadata } from 'next'
 import { Suspense } from 'react'
+import Link from 'next/link'
 import ImovelCard from '@/components/ImovelCard'
 import FiltrosImoveisWrapper from '@/components/FiltrosImoveisWrapper'
+import FiltrosDrawerMobile from '@/components/FiltrosDrawerMobile'
+import ImoveisToolbar from '@/components/ImoveisToolbar'
+import Button from '@/components/ui/Button'
 import { getDbPool } from '@/lib/db'
 import { Imovel, FiltrosImoveis as FiltrosType } from '@/types'
 
@@ -77,8 +81,17 @@ async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; to
     const [countRows] = await pool.execute(countQuery, params) as any[]
     const total = countRows[0]?.total || 0
 
-    // Buscar imóveis
-    query += ' ORDER BY i.destaque DESC, i.created_at DESC LIMIT ? OFFSET ?'
+    const ordenar = filtros.ordenar || 'relevancia'
+    if (ordenar === 'preco_asc') {
+      query += ' ORDER BY i.preco ASC, i.destaque DESC, i.created_at DESC'
+    } else if (ordenar === 'preco_desc') {
+      query += ' ORDER BY i.preco DESC, i.destaque DESC, i.created_at DESC'
+    } else if (ordenar === 'recentes') {
+      query += ' ORDER BY i.created_at DESC, i.destaque DESC'
+    } else {
+      query += ' ORDER BY i.destaque DESC, i.created_at DESC'
+    }
+    query += ' LIMIT ? OFFSET ?'
     params.push(limit, offset)
 
     const [rows] = await pool.execute(query, params) as any[]
@@ -107,6 +120,7 @@ interface PageProps {
     vagas?: string
     busca?: string
     page?: string
+    ordenar?: string
   }
 }
 
@@ -123,6 +137,7 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
     busca: searchParams.busca,
     page: searchParams.page ? parseInt(searchParams.page) : 1,
     limit: 12,
+    ordenar: (searchParams.ordenar as any) || 'relevancia',
   }
 
   const { imoveis, total } = await getImoveis(filtros)
@@ -135,20 +150,36 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <aside className="lg:col-span-1">
+        <aside className="hidden lg:block lg:col-span-1">
           <Suspense fallback={<div className="text-neutral-500 text-sm">Carregando filtros...</div>}>
             <FiltrosImoveisWrapper />
           </Suspense>
         </aside>
 
         <main className="lg:col-span-3">
+          <Suspense fallback={null}>
+            <FiltrosDrawerMobile />
+          </Suspense>
           {imoveis.length === 0 ? (
-            <div className="text-center py-14 bg-neutral-50 rounded-card border border-neutral-100">
-              <p className="text-neutral-600 text-lg">Nenhum imóvel encontrado com os filtros selecionados.</p>
+            <div className="text-center py-16 bg-neutral-50 rounded-card border border-neutral-100 px-4">
+              <p className="text-neutral-600 text-lg mb-6">
+                Nenhum imóvel encontrado com os filtros selecionados.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link href="/imoveis">
+                  <Button variant="outline">Limpar filtros</Button>
+                </Link>
+                <Link href="/imoveis">
+                  <Button>Ver todos os imóveis</Button>
+                </Link>
+              </div>
             </div>
           ) : (
             <>
-              <div className="mb-5 text-neutral-600 text-sm">
+              <Suspense fallback={null}>
+                <ImoveisToolbar />
+              </Suspense>
+              <div className="text-neutral-600 text-sm mb-4">
                 {total} {total === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

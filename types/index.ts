@@ -53,6 +53,8 @@ export interface Usuario {
   created_at: Date
 }
 
+export type OrdenarImoveis = 'relevancia' | 'preco_asc' | 'preco_desc' | 'recentes'
+
 export interface FiltrosImoveis {
   cidade?: string
   tipo?: TipoImovel
@@ -65,4 +67,5 @@ export interface FiltrosImoveis {
   busca?: string
   page?: number
   limit?: number
+  ordenar?: OrdenarImoveis
 }
