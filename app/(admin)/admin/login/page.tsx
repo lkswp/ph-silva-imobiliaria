@@ -11,8 +11,8 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 
 const loginSchema = z.object({
-  email: z.string().email('Email inválido'),
-  password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+  email: z.string().min(1, 'Email é obrigatório').email('Email inválido'),
+  password: z.string().min(1, 'Senha é obrigatória').min(6, 'Senha deve ter pelo menos 6 caracteres'),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
