@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { FiltrosImoveis } from '@/types'
+import type { FiltrosImoveis } from '@/types'
 import Input from './ui/Input'
 import Button from './ui/Button'
 
