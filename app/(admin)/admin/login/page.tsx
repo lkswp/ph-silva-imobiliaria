@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -54,11 +55,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-center mb-8">Login Admin</h1>
+    <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
+      <Card className="max-w-md w-full p-8 md:p-10">
+        <h1 className="text-2xl font-bold font-heading text-center mb-8 text-neutral-900">
+          Painel PH SILVA
+        </h1>
+        <p className="text-neutral-600 text-sm text-center mb-6">
+          Faça login para acessar o painel administrativo.
+        </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <Input
             label="Email"
             type="email"
@@ -74,7 +80,7 @@ export default function LoginPage() {
           />
 
           {erro && (
-            <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-lg text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-input text-sm">
               {erro}
             </div>
           )}
@@ -83,7 +89,7 @@ export default function LoginPage() {
             {carregando ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
-      </div>
+      </Card>
     </div>
   )
 }

@@ -66,7 +66,7 @@ export default function FormularioContato({ imovelId }: FormularioContatoProps) 
 
   if (enviado) {
     return (
-      <div className="bg-green-50 border border-green-200 text-green-800 p-4 rounded-lg">
+      <div className="bg-green-50 border border-green-200 text-green-800 p-4 rounded-input text-sm">
         Mensagem enviada com sucesso! Entraremos em contato em breve.
       </div>
     )
@@ -92,21 +92,21 @@ export default function FormularioContato({ imovelId }: FormularioContatoProps) 
         error={errors.telefone?.message}
       />
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-neutral-700 mb-1.5">
           Mensagem
         </label>
         <textarea
           {...register('mensagem')}
           rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-4 py-2.5 border border-neutral-300 rounded-input text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:border-transparent"
         />
         {errors.mensagem && (
-          <p className="mt-1 text-sm text-red-600">{errors.mensagem.message}</p>
+          <p className="mt-1.5 text-sm text-red-600">{errors.mensagem.message}</p>
         )}
       </div>
 
       {erro && (
-        <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-lg text-sm">
+        <div className="bg-red-50 border border-red-200 text-red-800 p-3 rounded-input text-sm">
           {erro}
         </div>
       )}

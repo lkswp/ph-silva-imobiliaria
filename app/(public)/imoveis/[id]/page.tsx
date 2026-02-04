@@ -73,120 +73,114 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
   const whatsappMessage = `Olá! Tenho interesse no imóvel: ${imovel.titulo} - ${formatCurrency(imovel.preco)}`
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 md:py-10">
       {/* Breadcrumbs */}
-      <nav className="mb-6 text-sm">
-        <Link href="/" className="text-gray-600 hover:text-primary">
+      <nav className="mb-6 text-sm text-neutral-500" aria-label="Navegação">
+        <Link href="/" className="hover:text-primary transition-colors">
           Início
         </Link>
         {' / '}
-        <Link href="/imoveis" className="text-gray-600 hover:text-primary">
+        <Link href="/imoveis" className="hover:text-primary transition-colors">
           Imóveis
         </Link>
         {' / '}
-        <span className="text-gray-900">{imovel.titulo}</span>
+        <span className="text-neutral-900 truncate max-w-[180px] md:max-w-none inline-block align-bottom" title={imovel.titulo}>
+          {imovel.titulo}
+        </span>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
         <div className="lg:col-span-2">
-          {/* Galeria */}
           <GaleriaFotos fotos={imovel.fotos || []} titulo={imovel.titulo} />
 
-          {/* Informações */}
           <div className="mt-8">
-            <h1 className="text-3xl font-bold mb-4">{imovel.titulo}</h1>
-            <p className="text-xl text-primary font-semibold mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold font-heading mb-3 text-neutral-900 leading-tight">
+              {imovel.titulo}
+            </h1>
+            <p className="text-xl md:text-2xl text-primary font-semibold mb-6">
               {formatCurrency(imovel.preco)}
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 p-4 bg-gray-50 rounded-lg">
-              {imovel.quartos && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 p-5 bg-neutral-50 rounded-card border border-neutral-100">
+              {imovel.quartos != null && (
                 <div>
-                  <div className="text-2xl font-bold">{imovel.quartos}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-2xl font-bold text-neutral-900">{imovel.quartos}</div>
+                  <div className="text-sm text-neutral-600">
                     {imovel.quartos === 1 ? 'Quarto' : 'Quartos'}
                   </div>
                 </div>
               )}
-              {imovel.banheiros && (
+              {imovel.banheiros != null && (
                 <div>
-                  <div className="text-2xl font-bold">{imovel.banheiros}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-2xl font-bold text-neutral-900">{imovel.banheiros}</div>
+                  <div className="text-sm text-neutral-600">
                     {imovel.banheiros === 1 ? 'Banheiro' : 'Banheiros'}
                   </div>
                 </div>
               )}
-              {imovel.vagas && (
+              {imovel.vagas != null && (
                 <div>
-                  <div className="text-2xl font-bold">{imovel.vagas}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-2xl font-bold text-neutral-900">{imovel.vagas}</div>
+                  <div className="text-sm text-neutral-600">
                     {imovel.vagas === 1 ? 'Vaga' : 'Vagas'}
                   </div>
                 </div>
               )}
-              {imovel.area_total && (
+              {imovel.area_total != null && (
                 <div>
-                  <div className="text-2xl font-bold">{imovel.area_total}m²</div>
-                  <div className="text-sm text-gray-600">Área Total</div>
+                  <div className="text-2xl font-bold text-neutral-900">{imovel.area_total}m²</div>
+                  <div className="text-sm text-neutral-600">Área Total</div>
                 </div>
               )}
             </div>
 
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Descrição</h2>
-              <p className="text-gray-700 whitespace-pre-line">{imovel.descricao}</p>
-            </div>
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold font-heading mb-4 text-neutral-900">Descrição</h2>
+              <p className="text-neutral-700 whitespace-pre-line leading-relaxed">{imovel.descricao}</p>
+            </section>
 
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Localização</h2>
-              <p className="text-gray-700">
-                {imovel.endereco && `${imovel.endereco}, ${imovel.numero}`}
-                <br />
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold font-heading mb-4 text-neutral-900">Localização</h2>
+              <p className="text-neutral-700">
+                {imovel.endereco && `${imovel.endereco}, ${imovel.numero || ''}`}
+                {imovel.endereco && <br />}
                 {imovel.bairro && `${imovel.bairro}, `}
                 {imovel.cidade}
                 {imovel.cep && ` - CEP: ${imovel.cep}`}
               </p>
-            </div>
+            </section>
 
-            {/* Mapa */}
-            {imovel.latitude && imovel.longitude && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">Localização no Mapa</h2>
-                <MapaLocalizacao
-                  latitude={imovel.latitude}
-                  longitude={imovel.longitude}
-                  endereco={`${imovel.endereco}, ${imovel.cidade}`}
-                />
-              </div>
+            {imovel.latitude != null && imovel.longitude != null && (
+              <section className="mb-8">
+                <h2 className="text-xl font-semibold font-heading mb-4 text-neutral-900">Localização no Mapa</h2>
+                <div className="rounded-card overflow-hidden border border-neutral-100">
+                  <MapaLocalizacao
+                    latitude={imovel.latitude}
+                    longitude={imovel.longitude}
+                    endereco={`${imovel.endereco || ''}, ${imovel.cidade}`}
+                  />
+                </div>
+              </section>
             )}
 
-            {/* Informações Adicionais */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">Informações Adicionais</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <span className="font-semibold">Tipo:</span> {imovel.tipo}
-                </div>
-                <div>
-                  <span className="font-semibold">Operação:</span> {imovel.operacao === 'venda' ? 'Venda' : 'Aluguel'}
-                </div>
-                {imovel.area_construida && (
-                  <div>
-                    <span className="font-semibold">Área Construída:</span> {imovel.area_construida}m²
-                  </div>
+            <section className="mb-8">
+              <h2 className="text-xl font-semibold font-heading mb-4 text-neutral-900">Informações Adicionais</h2>
+              <div className="grid grid-cols-2 gap-4 text-neutral-700">
+                <div><span className="font-medium text-neutral-900">Tipo:</span> {imovel.tipo}</div>
+                <div><span className="font-medium text-neutral-900">Operação:</span> {imovel.operacao === 'venda' ? 'Venda' : 'Aluguel'}</div>
+                {imovel.area_construida != null && (
+                  <div><span className="font-medium text-neutral-900">Área Construída:</span> {imovel.area_construida}m²</div>
                 )}
-                <div>
-                  <span className="font-semibold">Status:</span> {imovel.status}
-                </div>
+                <div><span className="font-medium text-neutral-900">Status:</span> {imovel.status}</div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
 
         <aside className="lg:col-span-1">
-          <div className="bg-white p-6 rounded-lg shadow-md sticky top-24">
-            <h3 className="text-xl font-bold mb-4">Entre em Contato</h3>
-            <p className="text-gray-600 mb-6">
+          <div className="bg-white p-6 rounded-card shadow-card border border-neutral-100 sticky top-24">
+            <h3 className="text-lg font-semibold font-heading mb-3 text-neutral-900">Entre em Contato</h3>
+            <p className="text-neutral-600 text-sm mb-6">
               Interessado neste imóvel? Entre em contato conosco!
             </p>
 
@@ -194,7 +188,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
               href={getWhatsAppLink(whatsappNumber, whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-lg mb-4 transition-colors"
+              className="block w-full bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-button font-medium mb-4 transition-colors focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
             >
               Falar no WhatsApp
             </a>

@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
       href={getWhatsAppLink(whatsappNumber, message)}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg z-50 transition-all hover:scale-110"
+      className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-card-hover z-50 transition-all duration-200 hover:scale-105 focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
       aria-label="Fale conosco no WhatsApp"
     >
       <svg

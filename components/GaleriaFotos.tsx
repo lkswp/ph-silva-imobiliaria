@@ -13,12 +13,12 @@ export default function GaleriaFotos({ fotos, titulo }: GaleriaFotosProps) {
 
   if (fotos.length === 0) {
     return (
-      <div className="relative h-96 w-full bg-gray-200 rounded-lg flex items-center justify-center">
+      <div className="relative h-96 w-full bg-neutral-200 rounded-card flex items-center justify-center overflow-hidden">
         <Image
           src="https://via.placeholder.com/800x600?text=Sem+Imagem"
           alt={titulo}
           fill
-          className="object-cover rounded-lg"
+          className="object-cover rounded-card"
         />
       </div>
     )
@@ -26,7 +26,7 @@ export default function GaleriaFotos({ fotos, titulo }: GaleriaFotosProps) {
 
   return (
     <div>
-      <div className="relative h-96 w-full mb-4 rounded-lg overflow-hidden">
+      <div className="relative h-96 w-full mb-4 rounded-card overflow-hidden border border-neutral-100">
         <Image
           src={fotoPrincipal}
           alt={titulo}
@@ -42,8 +42,9 @@ export default function GaleriaFotos({ fotos, titulo }: GaleriaFotosProps) {
           {fotos.slice(0, 4).map((foto) => (
             <button
               key={foto.id}
+              type="button"
               onClick={() => setFotoPrincipal(foto.url)}
-              className={`relative h-24 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`relative h-24 rounded-button overflow-hidden border-2 transition-colors ${
                 fotoPrincipal === foto.url ? 'border-primary' : 'border-transparent'
               }`}
             >

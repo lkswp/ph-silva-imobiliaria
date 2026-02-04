@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import FormularioContato from '@/components/FormularioContato'
+import Card from '@/components/ui/Card'
 
 export const metadata: Metadata = {
   title: 'Contato - PH SILVA Imobiliária',
@@ -8,37 +9,43 @@ export const metadata: Metadata = {
 
 export default function ContatoPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-14 md:py-16">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">Entre em Contato</h1>
+        <h1 className="text-2xl md:text-3xl font-bold font-heading mb-10 text-center text-neutral-900">
+          Entre em Contato
+        </h1>
 
-        <div className="bg-white p-8 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-bold mb-6">Informações de Contato</h2>
-          <div className="space-y-4 text-gray-700">
+        <Card className="p-6 md:p-8 mb-8">
+          <h2 className="text-lg font-semibold font-heading mb-5 text-neutral-900">
+            Informações de Contato
+          </h2>
+          <div className="space-y-4 text-neutral-700 text-sm">
             <div>
-              <span className="font-semibold">Email:</span> contato@phsilva.com.br
+              <span className="font-medium text-neutral-900">Email:</span> contato@phsilva.com.br
             </div>
             <div>
-              <span className="font-semibold">Telefone:</span> (11) 99999-9999
+              <span className="font-medium text-neutral-900">Telefone:</span> (11) 99999-9999
             </div>
             <div>
-              <span className="font-semibold">WhatsApp:</span>{' '}
+              <span className="font-medium text-neutral-900">WhatsApp:</span>{' '}
               <a
                 href="https://wa.me/5511999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline"
+                className="text-primary hover:underline focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
               >
                 (11) 99999-9999
               </a>
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-6">Envie uma Mensagem</h2>
+        <Card className="p-6 md:p-8">
+          <h2 className="text-lg font-semibold font-heading mb-6 text-neutral-900">
+            Envie uma Mensagem
+          </h2>
           <FormularioContato />
-        </div>
+        </Card>
       </div>
     </div>
   )
