@@ -66,10 +66,10 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="PH SILVA Imobiliária"
-            width={220}
-            height={60}
-            className="w-40 md:w-48 lg:w-56 object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ maxHeight: '100%' }}
+            width={180}
+            height={50}
+            className="w-36 md:w-40 lg:w-48 object-contain transition-transform duration-300 group-hover:scale-105"
+            style={{ maxHeight: '85%' }}
             priority
           />
         </Link>
