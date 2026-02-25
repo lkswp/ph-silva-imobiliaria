@@ -23,9 +23,9 @@ export default function Sidebar() {
         <Image
           src="/logo.png"
           alt="PH SILVA"
-          width={180}
-          height={50}
-          className="w-40 object-contain relative z-10 drop-shadow-lg"
+          width={160}
+          height={45}
+          className="w-36 object-contain relative z-10 drop-shadow-lg"
           priority
         />
         <div className="inline-flex items-center px-2 py-0.5 mt-2 rounded bg-primary/20 text-primary-light text-xs font-medium border border-primary/20">

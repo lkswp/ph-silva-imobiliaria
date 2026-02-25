@@ -21,9 +21,9 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="PH SILVA Imobiliária"
-                width={220}
-                height={60}
-                className="w-56 object-contain transition-transform duration-300 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                width={180}
+                height={48}
+                className="w-48 object-contain transition-transform duration-300 group-hover:scale-105 opacity-90 group-hover:opacity-100"
               />
             </Link>
             <p className="text-neutral-400 text-sm leading-relaxed mb-8">
