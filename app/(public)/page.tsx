@@ -71,7 +71,7 @@ export default async function HomePage() {
           <div className="text-center mb-12">
             <AnimatedText
               text={["O Imóvel Perfeito", "Para Uma Vida Extraordinária"]}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading mb-6 tracking-tight leading-[1.1]"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-heading mb-6 tracking-tight leading-[1.2] md:leading-[1.1]"
               el="h1"
             />
             <ScrollReveal delay={0.3}>
@@ -87,12 +87,12 @@ export default async function HomePage() {
               <HomeBuscaRapida variant="hero" regioes={regioes} />
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/imoveis" className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-glow">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0">
+              <Link href="/imoveis" className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-glow">
                 <span>Explorar Propriedades</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link href="/contato" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20">
+              <Link href="/contato" className="w-full sm:w-auto inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20">
                 Falar com Especialista
               </Link>
             </div>
@@ -136,8 +136,8 @@ export default async function HomePage() {
           <div className="container mx-auto px-6">
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-16">
-                <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-3 block">Seleção Exclusiva</span>
-                <h2 className="text-3xl md:text-5xl font-bold font-heading text-white mb-6">
+                <span className="text-primary font-semibold tracking-wider uppercase text-xs md:text-sm mb-3 block">Seleção Exclusiva</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold font-heading text-white mb-6">
                   Imóveis em Destaque
                 </h2>
                 <p className="text-neutral-400 text-lg">
@@ -261,7 +261,7 @@ export default async function HomePage() {
             <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Transforme seu sonho em realidade com a expertise de quem domina o mercado imobiliário premium da região.
             </p>
-            <Link href="/contato" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary transition-all hover:bg-neutral-100 hover:scale-105 shadow-xl">
+            <Link href="/contato" className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary transition-all hover:bg-neutral-100 hover:scale-105 shadow-xl">
               Fale com um Especialista Agora
             </Link>
           </ScrollReveal>

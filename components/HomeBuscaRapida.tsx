@@ -32,7 +32,7 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
         'transition-shadow',
         isHero
           ? 'bg-transparent'
-          : 'bg-background-lighter border border-white/5 rounded-3xl p-6 md:p-8 shadow-glass'
+          : 'bg-background-lighter border border-white/5 rounded-3xl p-4 sm:p-6 md:p-8 shadow-glass'
       )}
     >
       {/* Tabs Comprar / Alugar */}
@@ -63,7 +63,7 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
         </button>
       </div>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-3">
         <div>
           <label className="block text-sm font-medium text-neutral-400 mb-2">Localização</label>
           <div className="relative">
@@ -101,8 +101,8 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-end">
-          <label className="block text-sm font-medium text-neutral-400 mb-2 opacity-0 pointer-events-none">Ação</label>
+        <div className="flex flex-col justify-end mt-2 md:mt-0">
+          <label className="hidden md:block text-sm font-medium text-neutral-400 mb-2 opacity-0 pointer-events-none">Ação</label>
           <button
             onClick={handleBuscar}
             className="w-full h-[56px] rounded-xl bg-primary text-white font-semibold hover:bg-primary-dark hover:shadow-glow transition-all active:scale-[0.98] flex items-center justify-center gap-2"
