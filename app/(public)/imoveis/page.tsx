@@ -110,6 +110,19 @@ async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; to
   }
 }
 
+async function getRegioesAtivas() {
+  try {
+    const pool = getDbPool()
+    const [rows] = await pool.execute(
+      `SELECT nome, slug FROM regioes WHERE ativo = 1 ORDER BY nome ASC`
+    ) as any[]
+    return rows
+  } catch (error) {
+    console.error('Erro ao buscar regiões:', error)
+    return []
+  }
+}
+
 interface PageProps {
   searchParams: {
     cidade?: string
@@ -143,6 +156,7 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
   }
 
   const { imoveis, total } = await getImoveis(filtros)
+  const regioes = await getRegioesAtivas()
   const totalPages = Math.ceil(total / (filtros.limit || 12))
 
   return (
@@ -166,13 +180,13 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <aside className="hidden lg:block lg:col-span-3">
             <Suspense fallback={<div className="text-neutral-500 text-sm">Carregando filtros...</div>}>
-              <FiltrosImoveisWrapper />
+              <FiltrosImoveisWrapper regioes={regioes} />
             </Suspense>
           </aside>
 
           <main className="lg:col-span-9">
             <Suspense fallback={null}>
-              <FiltrosDrawerMobile />
+              <FiltrosDrawerMobile regioes={regioes} />
             </Suspense>
 
             {imoveis.length === 0 ? (
@@ -220,8 +234,8 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
                         key={page}
                         href={`/imoveis?${new URLSearchParams({ ...searchParams, page: page.toString() } as any).toString()}`}
                         className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${page === filtros.page
-                            ? 'bg-primary text-white shadow-glow'
-                            : 'bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white border border-white/5'
+                          ? 'bg-primary text-white shadow-glow'
+                          : 'bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white border border-white/5'
                           }`}
                       >
                         {page}

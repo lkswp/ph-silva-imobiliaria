@@ -4,9 +4,9 @@ import { useSearchParams } from 'next/navigation'
 import FiltrosImoveis from './FiltrosImoveis'
 import { FiltrosImoveis as FiltrosType } from '@/types'
 
-export default function FiltrosImoveisWrapper() {
+export default function FiltrosImoveisWrapper({ regioes = [] }: { regioes?: any[] }) {
   const searchParams = useSearchParams()
-  
+
   const filtros: FiltrosType = {
     cidade: searchParams.get('cidade') || undefined,
     tipo: searchParams.get('tipo') as any,
@@ -21,5 +21,5 @@ export default function FiltrosImoveisWrapper() {
     limit: 12,
   }
 
-  return <FiltrosImoveis filtros={filtros} />
+  return <FiltrosImoveis filtros={filtros} regioes={regioes} />
 }

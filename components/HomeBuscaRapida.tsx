@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils'
 
 interface HomeBuscaRapidaProps {
   variant?: 'default' | 'hero'
+  regioes?: { nome: string; slug: string }[]
 }
 
-export default function HomeBuscaRapida({ variant = 'default' }: HomeBuscaRapidaProps) {
+export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: HomeBuscaRapidaProps) {
   const router = useRouter()
   const [operacao, setOperacao] = useState<'venda' | 'aluguel' | ''>('')
   const [cidade, setCidade] = useState('')
@@ -72,9 +73,9 @@ export default function HomeBuscaRapida({ variant = 'default' }: HomeBuscaRapida
               className="w-full px-4 py-4 appearance-none border border-white/10 rounded-xl text-white bg-white/5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
             >
               <option value="" className="bg-background text-white">Todas as regiões</option>
-              <option value="igarata" className="bg-background text-white">Igaratá</option>
-              <option value="santa-isabel" className="bg-background text-white">Santa Isabel</option>
-              <option value="mogi-das-cruzes" className="bg-background text-white">Mogi das Cruzes</option>
+              {regioes.map((reg) => (
+                <option key={reg.slug} value={reg.slug} className="bg-background text-white">{reg.nome}</option>
+              ))}
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-400">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>

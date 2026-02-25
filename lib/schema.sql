@@ -5,12 +5,23 @@ CREATE DATABASE IF NOT EXISTS ph_silva CHARACTER SET utf8mb4 COLLATE utf8mb4_uni
 
 USE ph_silva;
 
--- Tabela de usuários (admin)
+-- Tabela de usuários (admin e comuns)
 CREATE TABLE IF NOT EXISTS usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   senha_hash VARCHAR(255) NOT NULL,
   nome VARCHAR(255) NOT NULL,
+  role ENUM('admin', 'user') DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Tabela de regiões
+CREATE TABLE IF NOT EXISTS regioes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  slug VARCHAR(100) UNIQUE NOT NULL,
+  icone VARCHAR(50) DEFAULT 'MapPin',
+  ativo BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

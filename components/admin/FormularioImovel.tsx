@@ -138,31 +138,31 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded-lg shadow-md space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-background-lighter p-8 rounded-3xl border border-white/5 shadow-glass space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Título *"
           {...register('titulo')}
           error={errors.titulo?.message}
         />
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
             Tipo *
           </label>
-          <select {...register('tipo')} className="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="casa">Casa</option>
-            <option value="apartamento">Apartamento</option>
-            <option value="terreno">Terreno</option>
-            <option value="comercial">Comercial</option>
+          <select {...register('tipo')} className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary transition-all">
+            <option value="casa" className="text-neutral-900">Casa</option>
+            <option value="apartamento" className="text-neutral-900">Apartamento</option>
+            <option value="terreno" className="text-neutral-900">Terreno</option>
+            <option value="comercial" className="text-neutral-900">Comercial</option>
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
             Operação *
           </label>
-          <select {...register('operacao')} className="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="venda">Venda</option>
-            <option value="aluguel">Aluguel</option>
+          <select {...register('operacao')} className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary transition-all">
+            <option value="venda" className="text-neutral-900">Venda</option>
+            <option value="aluguel" className="text-neutral-900">Aluguel</option>
           </select>
         </div>
         <Input
@@ -235,27 +235,29 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-neutral-400 mb-2">
           Descrição
         </label>
         <textarea
           {...register('descricao')}
           rows={6}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-neutral-400 mb-2">
           Fotos
         </label>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-        />
+        <div className="relative">
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark transition-all cursor-pointer"
+          />
+        </div>
         {fotos.length > 0 && (
           <div className="grid grid-cols-4 gap-2 mt-4">
             {fotos.map((url, index) => (
@@ -274,25 +276,25 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
         )}
       </div>
 
-      <div className="flex gap-4">
-        <div>
-          <label className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row gap-6 p-6 bg-white/5 rounded-2xl border border-white/5">
+        <div className="flex items-center">
+          <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"
               {...register('destaque')}
-              className="w-4 h-4"
+              className="w-5 h-5 rounded border-white/20 bg-white/5 text-primary focus:ring-primary"
             />
-            <span>Destaque</span>
+            <span className="text-white font-medium">Destacar no banner principal</span>
           </label>
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="flex-1 w-full max-w-xs">
+          <label className="block text-sm font-medium text-neutral-400 mb-2">
             Status
           </label>
-          <select {...register('status')} className="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="disponivel">Disponível</option>
-            <option value="reservado">Reservado</option>
-            <option value="vendido">Vendido</option>
+          <select {...register('status')} className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary transition-all">
+            <option value="disponivel" className="text-neutral-900">Disponível</option>
+            <option value="reservado" className="text-neutral-900">Reservado</option>
+            <option value="vendido" className="text-neutral-900">Vendido</option>
           </select>
         </div>
       </div>
@@ -303,17 +305,17 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
         </div>
       )}
 
-      <div className="flex gap-4">
-        <Button type="submit" disabled={enviando}>
-          {enviando ? 'Salvando...' : 'Salvar'}
-        </Button>
-        <Button
+      <div className="flex gap-4 pt-4 border-t border-white/5">
+        <button type="submit" disabled={enviando} className="flex-1 sm:flex-none px-8 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-colors disabled:opacity-50 tracking-wide shadow-glow">
+          {enviando ? 'Salvando...' : 'Salvar Imóvel'}
+        </button>
+        <button
           type="button"
-          variant="outline"
           onClick={() => router.push('/admin/imoveis')}
+          className="flex-1 sm:flex-none px-8 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl font-semibold border border-white/10 transition-colors"
         >
           Cancelar
-        </Button>
+        </button>
       </div>
     </form>
   )

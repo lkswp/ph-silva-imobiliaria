@@ -31,9 +31,7 @@ async function getImovel(id: number): Promise<Imovel | null> {
 }
 
 interface PageProps {
-  params: {
-    id: string
-  }
+  params: { id: string }
 }
 
 export default async function EditarImovelPage({ params }: PageProps) {
@@ -44,8 +42,11 @@ export default async function EditarImovelPage({ params }: PageProps) {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-8">Editar Imóvel</h1>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold mb-2 font-heading text-white">Editar Imóvel</h1>
+        <p className="text-neutral-400">Atualize as informações, o status ou a galeria de fotos desta propriedade.</p>
+      </div>
       <FormularioImovel imovel={imovel} />
     </div>
   )

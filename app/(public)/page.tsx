@@ -43,14 +43,22 @@ async function getDestaques(): Promise<Imovel[]> {
   }
 }
 
-const cidades = [
-  { nome: 'Igaratá', slug: 'igarata' },
-  { nome: 'Santa Isabel', slug: 'santa-isabel' },
-  { nome: 'Mogi das Cruzes', slug: 'mogi-das-cruzes' },
-]
+async function getRegioesAtivas() {
+  try {
+    const pool = getDbPool()
+    const [rows] = await pool.execute(
+      `SELECT nome, slug FROM regioes WHERE ativo = 1 ORDER BY nome ASC`
+    ) as any[]
+    return rows
+  } catch (error) {
+    console.error('Erro ao buscar regiões:', error)
+    return []
+  }
+}
 
 export default async function HomePage() {
   const destaques = await getDestaques()
+  const regioes = await getRegioesAtivas()
 
   return (
     <div className="flex flex-col w-full bg-background overflow-hidden">
@@ -76,7 +84,7 @@ export default async function HomePage() {
           <ScrollReveal delay={0.5}>
             <div className="glass-card rounded-3xl p-4 md:p-6 mb-10 max-w-4xl mx-auto shadow-glass relative">
               <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              <HomeBuscaRapida variant="hero" />
+              <HomeBuscaRapida variant="hero" regioes={regioes} />
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
@@ -223,7 +231,7 @@ export default async function HomePage() {
             </h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {cidades.map((cidade, idx) => (
+            {regioes.map((cidade: any, idx: number) => (
               <ScrollReveal key={cidade.slug} delay={0.1 * idx}>
                 <Link href={`/imoveis?cidade=${cidade.slug}`} className="block group">
                   <div className="relative overflow-hidden rounded-3xl h-64 border border-white/10 bg-background-lighter">
@@ -268,11 +276,7 @@ export default async function HomePage() {
             '@type': 'RealEstateAgent',
             name: 'PH SILVA Imobiliária Premium',
             description: 'Imobiliária especializada em imóveis de alto padrão na região de São Paulo',
-            areaServed: [
-              { '@type': 'City', name: 'Igaratá' },
-              { '@type': 'City', name: 'Santa Isabel' },
-              { '@type': 'City', name: 'Mogi das Cruzes' },
-            ],
+            areaServed: regioes.map((r: any) => ({ '@type': 'City', name: r.nome })),
           }),
         }}
       />

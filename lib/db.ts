@@ -6,10 +6,10 @@ export function getDbPool(): mysql.Pool {
   if (!pool) {
     // Railway usa MYSQL_URL; Vercel/local usam DATABASE_URL
     const connectionString = process.env.DATABASE_URL || process.env.MYSQL_URL || ''
-    
+
     // Parse MySQL connection string: mysql://user:password@host:port/database
     const url = new URL(connectionString)
-    
+
     // Em ambiente serverless (Vercel), usar menos conexões para não esgotar o limite do Railway
     const isServerless = !!process.env.VERCEL
     const connectionLimit = isServerless ? 2 : 10
@@ -31,14 +31,14 @@ export function getDbPool(): mysql.Pool {
       ...(ssl && { ssl }),
     })
   }
-  
+
   return pool
 }
 
 export async function initDatabase() {
   const pool = getDbPool()
   const connection = await pool.getConnection()
-  
+
   try {
     // Criar tabelas se não existirem
     await connection.query(`
@@ -47,10 +47,22 @@ export async function initDatabase() {
         email VARCHAR(255) UNIQUE NOT NULL,
         senha_hash VARCHAR(255) NOT NULL,
         nome VARCHAR(255) NOT NULL,
+        role ENUM('admin', 'user') DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     `)
-    
+
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS regioes (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(100) NOT NULL,
+        slug VARCHAR(100) UNIQUE NOT NULL,
+        icone VARCHAR(50) DEFAULT 'MapPin',
+        ativo BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    `)
+
     await connection.query(`
       CREATE TABLE IF NOT EXISTS imoveis (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -83,7 +95,7 @@ export async function initDatabase() {
         FULLTEXT idx_busca (titulo, descricao)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     `)
-    
+
     await connection.query(`
       CREATE TABLE IF NOT EXISTS imovel_fotos (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -95,7 +107,7 @@ export async function initDatabase() {
         INDEX idx_imovel (imovel_id)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     `)
-    
+
     await connection.query(`
       CREATE TABLE IF NOT EXISTS contatos (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -109,7 +121,7 @@ export async function initDatabase() {
         INDEX idx_imovel (imovel_id)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     `)
-    
+
     console.log('Banco de dados inicializado com sucesso!')
   } catch (error) {
     console.error('Erro ao inicializar banco de dados:', error)

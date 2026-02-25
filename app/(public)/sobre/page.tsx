@@ -3,13 +3,30 @@ import { AnimatedText } from '@/components/ui/AnimatedText'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { Target, Eye, Map, CheckCircle } from 'lucide-react'
+import * as LucideIcons from 'lucide-react'
+import { getDbPool } from '@/lib/db'
 
 export const metadata: Metadata = {
   title: 'Sobre Nós - PH SILVA Imobiliária',
   description: 'Conheça a PH SILVA Imobiliária, especializada em imóveis na região de São Paulo.',
 }
 
-export default function SobrePage() {
+async function getRegioesAtivas() {
+  try {
+    const pool = getDbPool()
+    const [rows] = await pool.execute(
+      `SELECT nome, icone FROM regioes WHERE ativo = 1 ORDER BY nome ASC`
+    ) as any[]
+    return rows
+  } catch (error) {
+    console.error('Erro ao buscar regiões:', error)
+    return []
+  }
+}
+
+export default async function SobrePage() {
+  const regioes = await getRegioesAtivas()
+
   return (
     <div className="flex flex-col w-full bg-background overflow-hidden min-h-screen pt-32 pb-20 relative">
       {/* Background elements */}
@@ -67,12 +84,20 @@ export default function SobrePage() {
                 </div>
                 <h2 className="text-3xl font-bold font-heading text-white mb-6">Onde estamos</h2>
                 <ul className="space-y-4">
-                  {['Igaratá (Sede e Foco em Resorts/Condomínios)', 'Santa Isabel', 'Mogi das Cruzes', 'Região Metropolitana de SP'].map((city, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-neutral-400">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary-light" />
-                      {city}
-                    </li>
-                  ))}
+                  {regioes.map((regiao: any, idx: number) => {
+                    const Icon = (LucideIcons as any)[regiao.icone] || LucideIcons.MapPin
+                    return (
+                      <li key={idx} className="flex items-center gap-4 text-neutral-300 bg-white/5 p-3 rounded-xl border border-white/5 hover:bg-white/10 transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20 shrink-0">
+                          <Icon className="w-5 h-5 text-primary-light" />
+                        </div>
+                        <span className="font-medium">{regiao.nome}</span>
+                      </li>
+                    )
+                  })}
+                  {regioes.length === 0 && (
+                    <li className="text-neutral-500">Nenhuma região cadastrada no momento.</li>
+                  )}
                 </ul>
               </div>
             </div>

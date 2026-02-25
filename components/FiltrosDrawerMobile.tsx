@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import FiltrosImoveisWrapper from './FiltrosImoveisWrapper'
 
-export default function FiltrosDrawerMobile() {
+export default function FiltrosDrawerMobile({ regioes = [] }: { regioes?: any[] }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   useEffect(() => setOpen(false), [pathname])
@@ -45,7 +45,7 @@ export default function FiltrosDrawerMobile() {
               </button>
             </div>
             <div className="p-4">
-              <FiltrosImoveisWrapper />
+              <FiltrosImoveisWrapper regioes={regioes} />
             </div>
           </div>
         </>

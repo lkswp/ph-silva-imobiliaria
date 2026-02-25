@@ -8,6 +8,7 @@ import { Search, FilterX } from 'lucide-react'
 
 interface FiltrosImoveisProps {
   filtros: FiltrosImoveis
+  regioes?: { nome: string; slug: string }[]
 }
 
 const selectClass =
@@ -16,7 +17,7 @@ const selectClass =
 const inputClass =
   'w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all'
 
-export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImoveisProps) {
+export default function FiltrosImoveis({ filtros: initialFiltros, regioes = [] }: FiltrosImoveisProps) {
   const router = useRouter()
   const [filtros, setFiltros] = useState<FiltrosImoveis>(initialFiltros)
 
@@ -68,9 +69,9 @@ export default function FiltrosImoveis({ filtros: initialFiltros }: FiltrosImove
               className={selectClass}
             >
               <option value="" className="bg-background text-white">Todas as regiões</option>
-              <option value="igarata" className="bg-background text-white">Igaratá</option>
-              <option value="santa-isabel" className="bg-background text-white">Santa Isabel</option>
-              <option value="mogi-das-cruzes" className="bg-background text-white">Mogi das Cruzes</option>
+              {regioes.map((reg) => (
+                <option key={reg.slug} value={reg.slug} className="bg-background text-white">{reg.nome}</option>
+              ))}
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-500">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
