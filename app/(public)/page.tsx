@@ -3,15 +3,18 @@ import { Metadata } from 'next'
 import Button from '@/components/ui/Button'
 import ImovelCard from '@/components/ImovelCard'
 import HomeBuscaRapida from '@/components/HomeBuscaRapida'
-import Card from '@/components/ui/Card'
 import { getDbPool } from '@/lib/db'
 import { Imovel } from '@/types'
+import { AnimatedText } from '@/components/ui/AnimatedText'
+import { SpotlightCard } from '@/components/ui/SpotlightCard'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { ShieldCheck, MapPin, Search, ArrowRight, UserCheck } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'PH SILVA Imobiliária - Imóveis em Igaratá, Santa Isabel e Mogi das Cruzes',
-  description: 'Encontre o imóvel dos seus sonhos na região de São Paulo. Casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e arredores.',
+  description: 'Encontre o imóvel dos seus sonhos na região de São Paulo. Experiência premium em Igaratá, Santa Isabel, Mogi das Cruzes e arredores.',
   openGraph: {
-    title: 'PH SILVA Imobiliária',
+    title: 'PH SILVA Imobiliária Premium',
     description: 'Sua imobiliária de confiança na região de São Paulo',
     type: 'website',
   },
@@ -50,177 +53,221 @@ export default async function HomePage() {
   const destaques = await getDestaques()
 
   return (
-    <>
-      {/* Hero com busca integrada */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-4 leading-tight">
-                Encontre o Imóvel dos Seus Sonhos
-              </h1>
-              <p className="text-base md:text-lg text-white/90 leading-relaxed">
-                Casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região
+    <div className="flex flex-col w-full bg-background overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative min-h-[92vh] flex flex-col items-center justify-center pt-32 pb-20">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[130px] rounded-full animate-blob pointer-events-none mix-blend-screen" />
+        <div className="absolute top-[40%] left-[30%] w-[600px] h-[600px] bg-secondary/10 blur-[120px] rounded-full animate-blob animation-delay-2000 pointer-events-none mix-blend-screen" />
+
+        <div className="container relative z-10 mx-auto px-6 max-w-5xl">
+          <div className="text-center mb-12">
+            <AnimatedText
+              text={["O Imóvel Perfeito", "Para Uma Vida Extraordinária"]}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading mb-6 tracking-tight leading-[1.1]"
+              el="h1"
+            />
+            <ScrollReveal delay={0.3}>
+              <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+                Descubra residências exclusivas, coberturas luxuosas e terrenos premium em Igaratá, Santa Isabel e região.
               </p>
-            </div>
-            <HomeBuscaRapida variant="hero" />
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
-              <Link href="/imoveis">
-                <Button size="lg" variant="secondary">
-                  Ver Imóveis
-                </Button>
-              </Link>
-              <Link href="/contato">
-                <Button size="lg" variant="outline" className="bg-white text-primary hover:bg-white/90 border-white">
-                  Fale Conosco
-                </Button>
-              </Link>
-            </div>
+            </ScrollReveal>
           </div>
+
+          <ScrollReveal delay={0.5}>
+            <div className="glass-card rounded-3xl p-4 md:p-6 mb-10 max-w-4xl mx-auto shadow-glass relative">
+              <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              <HomeBuscaRapida variant="hero" />
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href="/imoveis" className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-glow">
+                <span>Explorar Propriedades</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link href="/contato" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/20">
+                Falar com Especialista
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Buscas populares */}
-      <section className="py-12 md:py-14 bg-white border-b border-neutral-100">
-        <div className="container mx-auto px-4">
-          <h2 className="text-xl md:text-2xl font-bold font-heading mb-6 text-neutral-900">
-            Buscas populares
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/imoveis?cidade=igarata&operacao=venda&tipo=casa"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Casas à venda em Igaratá
-            </Link>
-            <Link
-              href="/imoveis?cidade=mogi-das-cruzes&tipo=apartamento"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Apartamentos em Mogi das Cruzes
-            </Link>
-            <Link
-              href="/imoveis?cidade=santa-isabel&operacao=aluguel"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Imóveis para alugar em Santa Isabel
-            </Link>
-            <Link
-              href="/imoveis?tipo=terreno&operacao=venda"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Terrenos à venda
-            </Link>
-            <Link
-              href="/imoveis?operacao=venda"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Todos à venda
-            </Link>
-            <Link
-              href="/imoveis?operacao=aluguel"
-              className="inline-flex items-center px-4 py-2.5 rounded-button border border-neutral-300 bg-white text-neutral-700 text-sm font-medium hover:bg-neutral-50 hover:border-primary hover:text-primary transition-colors duration-200"
-            >
-              Todos para alugar
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Imóveis em Destaque */}
-      {destaques.length > 0 && (
-        <section className="py-16 md:py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold font-heading text-center mb-12 text-neutral-900">
-              Imóveis em Destaque
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {destaques.map((imovel) => (
-                <ImovelCard key={imovel.id} imovel={imovel} />
+      {/* Popular Searches */}
+      <section className="py-20 bg-background-lighter relative border-y border-white/5">
+        <div className="container mx-auto px-6">
+          <ScrollReveal>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold font-heading text-white bg-clip-text">
+                Buscas Populares
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { label: 'Casas de Luxo em Igaratá', href: '/imoveis?cidade=igarata&tipo=casa' },
+                { label: 'Apartamentos Premium em Mogi', href: '/imoveis?cidade=mogi-das-cruzes&tipo=apartamento' },
+                { label: 'Sítios e Chácaras', href: '/imoveis?cidade=santa-isabel&tipo=terreno' },
+                { label: 'Lançamentos', href: '/imoveis?operacao=venda' },
+              ].map((link, idx) => (
+                <Link
+                  key={idx}
+                  href={link.href}
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 text-neutral-300 text-sm font-medium hover:bg-primary/20 hover:border-primary/50 hover:text-white transition-all duration-300"
+                >
+                  <Search className="w-4 h-4 text-neutral-500 group-hover:text-primary-light transition-colors" />
+                  {link.label}
+                </Link>
               ))}
             </div>
-            <div className="text-center mt-10">
-              <Link href="/imoveis">
-                <Button size="lg">Ver Todos os Imóveis</Button>
-              </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      {destaques.length > 0 && (
+        <section className="py-32 relative">
+          <div className="container mx-auto px-6">
+            <ScrollReveal>
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-3 block">Seleção Exclusiva</span>
+                <h2 className="text-3xl md:text-5xl font-bold font-heading text-white mb-6">
+                  Imóveis em Destaque
+                </h2>
+                <p className="text-neutral-400 text-lg">
+                  Uma curadoria meticulosa das propriedades mais desejadas e exclusivas do momento.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {destaques.map((imovel, idx) => (
+                <ScrollReveal key={imovel.id} delay={0.1 * idx}>
+                  <div className="group relative rounded-card overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-glow bg-background-lighter border border-white/5">
+                    <ImovelCard imovel={imovel} />
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
+
+            <ScrollReveal delay={0.4}>
+              <div className="text-center mt-16">
+                <Link href="/imoveis" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/10 hover:border-white/20 group">
+                  <span>Ver Catálogo Completo</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
       )}
 
-      {/* Por que PH SILVA */}
-      <section className="py-16 md:py-20 bg-neutral-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold font-heading text-center mb-12 text-neutral-900">
-            Por que escolher a PH SILVA?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 text-primary mb-4">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-2 text-neutral-900">Ampla Variedade</h3>
-              <p className="text-neutral-600 text-sm leading-relaxed">
-                Imóveis para todos os gostos e necessidades
-              </p>
+      {/* Why Choose Us */}
+      <section className="py-32 bg-background-lighter border-y border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <ScrollReveal>
+            <div className="text-center max-w-2xl mx-auto mb-20">
+              <span className="text-secondary font-semibold tracking-wider uppercase text-sm mb-3 block">Excelência e Tradição</span>
+              <h2 className="text-3xl md:text-5xl font-bold font-heading text-white">
+                O Padrão PH SILVA
+              </h2>
             </div>
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 text-primary mb-4">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-2 text-neutral-900">Região de Confiança</h3>
-              <p className="text-neutral-600 text-sm leading-relaxed">
-                Atendemos Igaratá, Santa Isabel, Mogi das Cruzes e região
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 text-primary mb-4">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold font-heading mb-2 text-neutral-900">Atendimento Personalizado</h3>
-              <p className="text-neutral-600 text-sm leading-relaxed">
-                Nossa equipe está pronta para ajudar você
-              </p>
-            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <ScrollReveal delay={0.1}>
+              <SpotlightCard className="h-full">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20 mb-6 group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="w-7 h-7 text-primary-light" />
+                </div>
+                <h3 className="text-xl font-bold font-heading text-white mb-3">Segurança Absoluta</h3>
+                <p className="text-neutral-400 text-sm leading-relaxed">
+                  Assessoria jurídica completa e análise rigorosa de documentação para uma transação sem riscos e com total transparência.
+                </p>
+              </SpotlightCard>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <SpotlightCard className="h-full">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary/20 to-secondary/5 flex items-center justify-center border border-secondary/20 mb-6 group-hover:scale-110 transition-transform">
+                  <MapPin className="w-7 h-7 text-secondary" />
+                </div>
+                <h3 className="text-xl font-bold font-heading text-white mb-3">Conhecimento Local</h3>
+                <p className="text-neutral-400 text-sm leading-relaxed">
+                  Tradição e profundo conhecimento do mercado de Igaratá, Santa Isabel e região, garantindo os melhores negócios.
+                </p>
+              </SpotlightCard>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.3}>
+              <SpotlightCard className="h-full">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/20 mb-6 group-hover:scale-110 transition-transform">
+                  <UserCheck className="w-7 h-7 text-primary-light" />
+                </div>
+                <h3 className="text-xl font-bold font-heading text-white mb-3">Atendimento Boutique</h3>
+                <p className="text-neutral-400 text-sm leading-relaxed">
+                  Acompanhamento exclusivo e personalizado em todas as etapas da sua jornada imobiliária.
+                </p>
+              </SpotlightCard>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Cidades Atendidas */}
-      <section className="py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold font-heading text-center mb-12 text-neutral-900">
-            Cidades Atendidas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {cidades.map((cidade) => (
-              <Link key={cidade.slug} href={`/imoveis?cidade=${cidade.slug}`}>
-                <Card hover className="p-6 md:p-8 text-center h-full">
-                  <h3 className="text-xl font-semibold font-heading text-primary">{cidade.nome}</h3>
-                  <p className="text-neutral-600 mt-2 text-sm">Ver imóveis em {cidade.nome}</p>
-                </Card>
-              </Link>
+      {/* Locations */}
+      <section className="py-32 relative">
+        <div className="container mx-auto px-6">
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-5xl font-bold font-heading text-center text-white mb-16">
+              Regiões de Atuação
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {cidades.map((cidade, idx) => (
+              <ScrollReveal key={cidade.slug} delay={0.1 * idx}>
+                <Link href={`/imoveis?cidade=${cidade.slug}`} className="block group">
+                  <div className="relative overflow-hidden rounded-3xl h-64 border border-white/10 bg-background-lighter">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent z-10 transition-opacity group-hover:opacity-80" />
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-end p-8 text-center">
+                      <h3 className="text-2xl font-bold font-heading text-white mb-2 group-hover:-translate-y-2 transition-transform duration-300">{cidade.nome}</h3>
+                      <p className="text-primary-light text-sm font-medium opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Explorar Imóveis &rarr;</p>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Structured Data */}
+      {/* Call to Action CTA */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-primary-light" />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay" />
+
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-5xl font-bold font-heading text-white mb-6">
+              Pronto para Dar o Próximo Passo?
+            </h2>
+            <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+              Transforme seu sonho em realidade com a expertise de quem domina o mercado imobiliário premium da região.
+            </p>
+            <Link href="/contato" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-primary transition-all hover:bg-neutral-100 hover:scale-105 shadow-xl">
+              Fale com um Especialista Agora
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'RealEstateAgent',
-            name: 'PH SILVA Imobiliária',
-            description: 'Imobiliária especializada em imóveis na região de São Paulo',
+            name: 'PH SILVA Imobiliária Premium',
+            description: 'Imobiliária especializada em imóveis de alto padrão na região de São Paulo',
             areaServed: [
               { '@type': 'City', name: 'Igaratá' },
               { '@type': 'City', name: 'Santa Isabel' },
@@ -229,6 +276,6 @@ export default async function HomePage() {
           }),
         }}
       />
-    </>
+    </div>
   )
 }

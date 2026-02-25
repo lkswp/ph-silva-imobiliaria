@@ -14,26 +14,51 @@ const config: Config = {
       },
       colors: {
         primary: {
-          DEFAULT: '#1e40af',
-          dark: '#1e3a8a',
-          light: '#3b82f6',
+          DEFAULT: '#3b82f6',
+          dark: '#1d4ed8',
+          light: '#60a5fa',
         },
         secondary: {
-          DEFAULT: '#059669',
-          dark: '#047857',
-          light: '#10b981',
+          DEFAULT: '#f59e0b',
+          dark: '#b45309',
+          light: '#fbbf24',
         },
+        background: {
+          DEFAULT: '#0a0a0a',
+          lighter: '#171717',
+          lightest: '#262626',
+        }
       },
       borderRadius: {
         button: '8px',
-        card: '12px',
+        card: '16px',
         input: '8px',
       },
       boxShadow: {
-        card: '0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06)',
-        'card-hover': '0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06)',
-        focus: '0 0 0 2px rgb(30 64 175 / 0.25)',
+        glass: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        glow: '0 0 20px rgba(59, 130, 246, 0.5)',
       },
+      animation: {
+        'blob': 'blob 7s infinite',
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+      },
+      keyframes: {
+        blob: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        }
+      }
     },
   },
   plugins: [],
