@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import Image from 'next/image'
+import { SignOutButton } from '@clerk/nextjs'
 import { cn } from '@/lib/utils'
 import { LayoutDashboard, Home, MapPin, Users, LogOut } from 'lucide-react'
 
@@ -19,7 +20,13 @@ export default function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 h-full w-64 lg:w-72 bg-background-lighter border-r border-white/5 shadow-glass flex flex-col z-50">
       <div className="p-8 border-b border-white/5">
-        <h2 className="text-2xl font-bold font-heading text-white tracking-tight">PH SILVA</h2>
+        <Image
+          src="/logo.png"
+          alt="PH SILVA Imobiliária"
+          width={180}
+          height={56}
+          className="h-10 w-auto object-contain mb-2"
+        />
         <div className="inline-flex items-center px-2 py-0.5 mt-2 rounded bg-primary/20 text-primary-light text-xs font-medium border border-primary/20">
           Painel Admin
         </div>
@@ -48,14 +55,15 @@ export default function Sidebar() {
       </nav>
 
       <div className="p-6 border-t border-white/5">
-        <button
-          type="button"
-          onClick={() => signOut({ callbackUrl: '/login' })}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-all duration-300 font-medium"
-        >
-          <LogOut className="w-5 h-5 text-neutral-500" />
-          <span>Sair</span>
-        </button>
+        <SignOutButton redirectUrl="/login">
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-neutral-400 hover:bg-white/5 hover:text-white transition-all duration-300 font-medium"
+          >
+            <LogOut className="w-5 h-5 text-neutral-500" />
+            <span>Sair</span>
+          </button>
+        </SignOutButton>
       </div>
     </aside>
   )

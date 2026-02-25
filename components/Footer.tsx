@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Building2, Mail, Phone, MapPin, Instagram, Facebook } from 'lucide-react'
 
 export default function Footer() {
@@ -16,13 +17,14 @@ export default function Footer() {
 
           {/* Brand Col */}
           <div className="lg:pr-8">
-            <Link href="/" className="inline-flex items-center gap-2 mb-6 group">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-glow transition-transform duration-300 group-hover:scale-105">
-                <Building2 className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-heading font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">
-                PH SILVA
-              </span>
+            <Link href="/" className="inline-flex items-center mb-6 group">
+              <Image
+                src="/logo.png"
+                alt="PH SILVA Imobiliária"
+                width={180}
+                height={56}
+                className="h-10 w-auto md:h-12 object-contain transition-transform duration-300 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+              />
             </Link>
             <p className="text-neutral-400 text-sm leading-relaxed mb-8">
               Sua imobiliária de confiança na região de São Paulo. Experiência premium, atendimento exclusivo e as melhores oportunidades do mercado.

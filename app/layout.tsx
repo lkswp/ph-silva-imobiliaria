@@ -14,21 +14,25 @@ export const metadata: Metadata = {
   keywords: 'imóveis, casas, apartamentos, terrenos, Igaratá, Santa Isabel, Mogi das Cruzes, venda, aluguel',
 }
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="pt-BR">
+        <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased`}>
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

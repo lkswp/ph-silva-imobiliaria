@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getDbPool } from '@/lib/db'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { auth } from '@clerk/nextjs/server'
 
 async function checkAdmin() {
-    const session = await getServerSession(authOptions)
-    return session && session.user.role === 'admin'
+    const { userId, sessionClaims } = await auth()
+    return userId && (sessionClaims?.metadata as any)?.role === 'admin'
 }
 
 export async function POST(req: Request) {

@@ -1,26 +1,41 @@
+import { SignIn } from '@clerk/nextjs'
 import { Metadata } from 'next'
-import LoginForm from './LoginForm'
-import { AnimatedText } from '@/components/ui/AnimatedText'
-import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 export const metadata: Metadata = {
     title: 'Login - PH SILVA Imobiliária',
+    description: 'Acesse sua conta para gerenciar imóveis e regiões.',
 }
 
 export default function LoginPage() {
     return (
-        <div className="flex flex-col w-full bg-background overflow-hidden min-h-[calc(100vh-80px)] pt-32 pb-20 relative items-center justify-center">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
+        <div className="min-h-screen flex items-center justify-center pt-32 pb-20 relative bg-background overflow-hidden">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 blur-[130px] rounded-full pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10 max-w-md">
-                <ScrollReveal>
-                    <div className="bg-background-lighter p-8 rounded-3xl border border-white/5 shadow-glass w-full">
-                        <AnimatedText text="Acessea sua Conta" className="text-3xl font-bold font-heading mb-2 text-white text-center" el="h1" />
-                        <p className="text-neutral-400 text-center mb-8">Bem-vindo de volta! Faça login para continuar.</p>
-                        <LoginForm />
-                    </div>
-                </ScrollReveal>
+            <div className="relative z-10 w-full max-w-md px-6 animate-in fade-in slide-in-from-bottom-8 duration-500">
+                <SignIn
+                    path="/login"
+                    routing="path"
+                    signUpUrl="/cadastro"
+                    appearance={{
+                        elements: {
+                            card: 'bg-background-lighter border border-white/10 shadow-glass rounded-3xl p-6 sm:p-8',
+                            headerTitle: 'text-2xl font-bold font-heading text-white',
+                            headerSubtitle: 'text-neutral-400',
+                            socialButtonsBlockButton: 'bg-white/5 border border-white/10 text-white hover:bg-white/10',
+                            socialButtonsBlockButtonText: 'text-white font-medium',
+                            dividerLine: 'bg-white/10',
+                            dividerText: 'text-neutral-500',
+                            formFieldLabel: 'text-neutral-400 font-medium',
+                            formFieldInput: 'bg-white/5 border border-white/10 rounded-xl text-white focus:ring-2 focus:ring-primary focus:border-transparent',
+                            formButtonPrimary: 'bg-primary hover:bg-primary-dark text-white rounded-xl shadow-glow py-3 font-semibold',
+                            footerActionText: 'text-neutral-400',
+                            footerActionLink: 'text-primary-light hover:text-primary transition-colors font-medium',
+                            identityPreviewText: 'text-white',
+                            identityPreviewEditButtonIcon: 'text-neutral-400 hover:text-white',
+                        },
+                    }}
+                />
             </div>
         </div>
     )

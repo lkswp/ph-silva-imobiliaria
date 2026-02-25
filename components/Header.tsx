@@ -6,6 +6,8 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Menu, X, ChevronDown, Building2, Phone } from 'lucide-react'
+import Image from 'next/image'
+import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/nextjs'
 
 export default function Header() {
   const pathname = usePathname()
@@ -60,14 +62,15 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="group flex items-center gap-2 text-2xl font-semibold text-white font-heading tracking-tight"
+            className="group flex items-center"
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-glow transition-transform duration-300 group-hover:scale-105">
-              <Building2 className="w-5 h-5 text-white" />
-            </div>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">
-              PH SILVA
-            </span>
+            <Image
+              src="/logo.png"
+              alt="PH SILVA Imobiliária"
+              width={180}
+              height={56}
+              className="h-10 w-auto md:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -146,6 +149,23 @@ export default function Header() {
               <Phone className="w-4 h-4 transition-transform group-hover:scale-110" />
               <span>Fale Conosco</span>
             </Link>
+
+            <SignedIn>
+              <div className="flex items-center justify-center bg-white/5 border border-white/10 rounded-full p-1 pl-4 gap-3">
+                <Link href="/conta" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">
+                  Painel
+                </Link>
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </SignedIn>
+
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                  Entrar
+                </button>
+              </SignInButton>
+            </SignedOut>
           </nav>
 
           <button
@@ -216,6 +236,24 @@ export default function Header() {
                   >
                     Contato
                   </Link>
+                </li>
+
+                <li className="mt-4 pt-4 border-t border-white/10 px-4">
+                  <SignedIn>
+                    <div className="flex items-center justify-between">
+                      <Link href="/conta" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-white">
+                        Painel Administrativo
+                      </Link>
+                      <UserButton afterSignOutUrl="/" />
+                    </div>
+                  </SignedIn>
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <button className="w-full rounded-xl bg-white/5 border border-white/10 py-3 text-sm font-medium text-white mb-2">
+                        Fazer Login
+                      </button>
+                    </SignInButton>
+                  </SignedOut>
                 </li>
               </ul>
             </motion.nav>

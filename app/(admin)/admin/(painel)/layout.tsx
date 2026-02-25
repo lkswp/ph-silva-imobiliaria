@@ -1,6 +1,5 @@
-import { getServerSession } from 'next-auth'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { authOptions } from '@/lib/auth'
 import Sidebar from '@/components/admin/Sidebar'
 
 export default async function PainelLayout({
@@ -8,9 +7,9 @@ export default async function PainelLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession(authOptions)
+  const { userId, sessionClaims } = await auth()
 
-  if (!session || session.user.role !== 'admin') {
+  if (!userId || (sessionClaims?.metadata as any)?.role !== 'admin') {
     redirect('/login')
   }
 
