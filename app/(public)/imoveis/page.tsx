@@ -8,6 +8,8 @@ import ImoveisToolbar from '@/components/ImoveisToolbar'
 import Button from '@/components/ui/Button'
 import { getDbPool } from '@/lib/db'
 import { Imovel, FiltrosImoveis as FiltrosType } from '@/types'
+import { AnimatedText } from '@/components/ui/AnimatedText'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 export const metadata: Metadata = {
   title: 'Imóveis Disponíveis - PH SILVA Imobiliária',
@@ -144,70 +146,93 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
   const totalPages = Math.ceil(total / (filtros.limit || 12))
 
   return (
-    <div className="container mx-auto px-4 py-10 md:py-12">
-      <h1 className="text-2xl md:text-3xl font-bold font-heading mb-8 text-neutral-900">
-        Imóveis Disponíveis
-      </h1>
+    <div className="flex flex-col w-full bg-background overflow-hidden min-h-screen pt-32 pb-20 relative">
+      {/* Background element */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 blur-[130px] rounded-full mix-blend-screen pointer-events-none" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <aside className="hidden lg:block lg:col-span-1">
-          <Suspense fallback={<div className="text-neutral-500 text-sm">Carregando filtros...</div>}>
-            <FiltrosImoveisWrapper />
-          </Suspense>
-        </aside>
+      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+        <div className="mb-12">
+          <AnimatedText
+            text="Imóveis Disponíveis"
+            className="text-3xl md:text-5xl font-bold font-heading mb-4 text-white"
+            el="h1"
+          />
+          <ScrollReveal delay={0.1}>
+            <p className="text-neutral-400 text-lg">Descubra propriedades exclusivas selecionadas criteriosamente pela PH SILVA.</p>
+          </ScrollReveal>
+        </div>
 
-        <main className="lg:col-span-3">
-          <Suspense fallback={null}>
-            <FiltrosDrawerMobile />
-          </Suspense>
-          {imoveis.length === 0 ? (
-            <div className="text-center py-16 bg-neutral-50 rounded-card border border-neutral-100 px-4">
-              <p className="text-neutral-600 text-lg mb-6">
-                Nenhum imóvel encontrado com os filtros selecionados.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/imoveis">
-                  <Button variant="outline">Limpar filtros</Button>
-                </Link>
-                <Link href="/imoveis">
-                  <Button>Ver todos os imóveis</Button>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <>
-              <Suspense fallback={null}>
-                <ImoveisToolbar />
-              </Suspense>
-              <div className="text-neutral-600 text-sm mb-4">
-                {total} {total === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {imoveis.map((imovel) => (
-                  <ImovelCard key={imovel.id} imovel={imovel} />
-                ))}
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <aside className="hidden lg:block lg:col-span-3">
+            <Suspense fallback={<div className="text-neutral-500 text-sm">Carregando filtros...</div>}>
+              <FiltrosImoveisWrapper />
+            </Suspense>
+          </aside>
 
-              {totalPages > 1 && (
-                <div className="flex justify-center gap-2 mt-10">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <a
-                      key={page}
-                      href={`/imoveis?${new URLSearchParams({ ...searchParams, page: page.toString() } as any).toString()}`}
-                      className={`px-4 py-2 rounded-button text-sm font-medium transition-colors ${
-                        page === filtros.page
-                          ? 'bg-primary text-white'
-                          : 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
-                      }`}
-                    >
-                      {page}
-                    </a>
+          <main className="lg:col-span-9">
+            <Suspense fallback={null}>
+              <FiltrosDrawerMobile />
+            </Suspense>
+
+            {imoveis.length === 0 ? (
+              <div className="text-center py-20 bg-background-lighter rounded-3xl border border-white/5 shadow-glass px-4">
+                <p className="text-neutral-400 text-lg mb-8">
+                  Nenhum imóvel encontrado com os filtros selecionados.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/imoveis">
+                    <button className="px-6 py-3 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-colors">
+                      Limpar Filtros
+                    </button>
+                  </Link>
+                  <Link href="/imoveis">
+                    <button className="px-6 py-3 rounded-xl bg-primary text-white hover:bg-primary-dark transition-colors">
+                      Ver Todos Imóveis
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Suspense fallback={null}>
+                  <ImoveisToolbar />
+                </Suspense>
+
+                <div className="text-neutral-400 text-sm mb-6 flex items-center justify-between">
+                  <span>
+                    Exibindo <strong className="text-white">{imoveis.length}</strong> de <strong className="text-white">{total}</strong> imóveis encontrados
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {imoveis.map((imovel, i) => (
+                    <ScrollReveal key={imovel.id} delay={i * 0.1}>
+                      <ImovelCard imovel={imovel} />
+                    </ScrollReveal>
                   ))}
                 </div>
-              )}
-            </>
-          )}
-        </main>
+
+                {totalPages > 1 && (
+                  <div className="flex justify-center gap-2 mt-12">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <a
+                        key={page}
+                        href={`/imoveis?${new URLSearchParams({ ...searchParams, page: page.toString() } as any).toString()}`}
+                        className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${page === filtros.page
+                            ? 'bg-primary text-white shadow-glow'
+                            : 'bg-white/5 text-neutral-400 hover:bg-white/10 hover:text-white border border-white/5'
+                          }`}
+                      >
+                        {page}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </main>
+        </div>
       </div>
     </div>
   )
