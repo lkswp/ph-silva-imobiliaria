@@ -54,8 +54,8 @@ export default function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
         isScrolled
-          ? "bg-background/80 backdrop-blur-xl border-white/10 shadow-glass py-3"
-          : "bg-transparent border-transparent py-6"
+          ? "bg-background/80 backdrop-blur-xl border-white/10 shadow-glass py-2 lg:py-3"
+          : "bg-transparent border-transparent py-3 lg:py-4"
       )}
     >
       <div className="container mx-auto px-6">
@@ -67,9 +67,9 @@ export default function Header() {
             <Image
               src="/logo.png"
               alt="PH SILVA Imobiliária"
-              width={180}
-              height={48}
-              className="w-40 md:w-48 object-contain transition-transform duration-300 group-hover:scale-105"
+              width={160}
+              height={40}
+              className="w-32 md:w-36 lg:w-40 object-contain transition-transform duration-300 group-hover:scale-105"
               priority
             />
           </Link>
