@@ -1,14 +1,20 @@
 import { NextResponse } from 'next/server'
 import { getDbPool } from '@/lib/db'
-import { auth } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
+import { z } from 'zod'
 
-async function checkAdmin() {
-    const { userId, sessionClaims } = await auth()
-    return userId && (sessionClaims?.metadata as any)?.role === 'admin'
+// Helper para verificar se é admin
+async function isAdmin() {
+    const { userId } = await auth()
+    if (!userId) return false
+
+    const client = await clerkClient()
+    const user = await client.users.getUser(userId)
+    return user.publicMetadata?.role === 'admin'
 }
 
 export async function POST(req: Request) {
-    if (!(await checkAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     try {
         const { nome, slug, icone } = await req.json()
@@ -25,7 +31,7 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-    if (!(await checkAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     try {
         const { id, nome, slug, icone, ativo } = await req.json()
@@ -41,7 +47,7 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-    if (!(await checkAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     try {
         const { searchParams } = new URL(req.url)

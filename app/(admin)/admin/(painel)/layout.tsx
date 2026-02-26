@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import Sidebar from '@/components/admin/Sidebar'
 
@@ -7,9 +7,16 @@ export default async function PainelLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { userId, sessionClaims } = await auth()
+  const { userId } = await auth()
 
-  if (!userId || (sessionClaims?.metadata as any)?.role !== 'admin') {
+  if (!userId) {
+    redirect('/login')
+  }
+
+  const client = await clerkClient()
+  const user = await client.users.getUser(userId)
+
+  if (user.publicMetadata?.role !== 'admin') {
     redirect('/login')
   }
 
