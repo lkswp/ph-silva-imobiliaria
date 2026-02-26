@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getDbPool } from '@/lib/db'
 import { auth } from '@clerk/nextjs/server'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const imovelUpdateSchema = z.object({
@@ -99,6 +100,11 @@ export async function PUT(
       values
     )
 
+    // Forçar revalidação de cache
+    revalidatePath('/')
+    revalidatePath('/imoveis')
+    revalidatePath(`/imoveis/${params.id}`)
+
     return NextResponse.json({ success: true })
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -124,6 +130,9 @@ export async function DELETE(
 
     const pool = getDbPool()
     await pool.execute('DELETE FROM imoveis WHERE id = ?', [params.id])
+
+    revalidatePath('/')
+    revalidatePath('/imoveis')
 
     return NextResponse.json({ success: true })
   } catch (error) {

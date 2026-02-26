@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getDbPool } from '@/lib/db'
 import { auth } from '@clerk/nextjs/server'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const imovelSchema = z.object({
@@ -196,7 +197,11 @@ export async function POST(request: NextRequest) {
 
       await connection.commit()
 
-      return NextResponse.json({ id: imovelId }, { status: 201 })
+      // Forçar revalidação de cache das páginas estáticas/ISR do Next.js
+      revalidatePath('/')
+      revalidatePath('/imoveis')
+
+      return NextResponse.json({ success: true, id: imovelId }, { status: 201 })
     } catch (error) {
       await connection.rollback()
       throw error

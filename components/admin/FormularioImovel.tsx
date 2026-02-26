@@ -8,6 +8,9 @@ import { z } from 'zod'
 import { Imovel } from '@/types'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy } from '@dnd-kit/sortable'
+import { SortablePhoto } from './SortablePhoto'
 
 const imovelSchema = z.object({
   titulo: z.string().min(1, 'Título é obrigatório'),
@@ -43,6 +46,29 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
   const [fotos, setFotos] = useState<string[]>(imovel?.fotos?.map(f => f.url) || [])
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (over && active.id !== over.id) {
+      setFotos((items) => {
+        const oldIndex = items.indexOf(active.id as string)
+        const newIndex = items.indexOf(over.id as string)
+        return arrayMove(items, oldIndex, newIndex)
+      })
+    }
+  }
 
   const {
     register,
@@ -266,19 +292,33 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
           />
         </div>
         {fotos.length > 0 && (
-          <div className="grid grid-cols-4 gap-2 mt-4">
-            {fotos.map((url, index) => (
-              <div key={index} className="relative">
-                <img src={url} alt={`Foto ${index + 1}`} className="w-full h-24 object-cover rounded" />
-                <button
-                  type="button"
-                  onClick={() => setFotos(fotos.filter((_, i) => i !== index))}
-                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
+          <div className="mt-6 border-t border-white/5 pt-6">
+            <h4 className="text-white font-medium mb-4 flex items-center justify-between">
+              Galeria de Fotos
+              <span className="text-sm text-neutral-400 font-normal">Arraste para reordenar. A primeira foto será a Capa.</span>
+            </h4>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={fotos}
+                strategy={rectSortingStrategy}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {fotos.map((url, index) => (
+                    <SortablePhoto
+                      key={url}
+                      id={url}
+                      url={url}
+                      isCover={index === 0}
+                      onRemove={() => setFotos(fotos.filter((f) => f !== url))}
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
           </div>
         )}
       </div>
