@@ -25,6 +25,7 @@ const imovelUpdateSchema = z.object({
   destaque: z.boolean().optional(),
   em_condominio: z.boolean().optional(),
   status: z.enum(['disponivel', 'reservado', 'vendido']).optional(),
+  fotos: z.array(z.string()).optional(),
 })
 
 export async function GET(
@@ -82,23 +83,35 @@ export async function PUT(
     const fields: string[] = []
     const values: any[] = []
 
-    Object.entries(data).forEach(([key, value]) => {
+    const { fotos, ...propertyData } = data
+
+    Object.entries(propertyData).forEach(([key, value]) => {
       if (value !== undefined) {
         fields.push(`${key} = ?`)
         values.push(value)
       }
     })
 
-    if (fields.length === 0) {
-      return NextResponse.json({ error: 'Nenhum campo para atualizar' }, { status: 400 })
+    if (fields.length > 0) {
+      values.push(params.id)
+      await pool.execute(
+        `UPDATE imoveis SET ${fields.join(', ')} WHERE id = ?`,
+        values
+      )
     }
 
-    values.push(params.id)
+    if (fotos !== undefined) {
+      await pool.execute('DELETE FROM imovel_fotos WHERE imovel_id = ?', [params.id])
 
-    await pool.execute(
-      `UPDATE imoveis SET ${fields.join(', ')} WHERE id = ?`,
-      values
-    )
+      if (fotos.length > 0) {
+        for (let i = 0; i < fotos.length; i++) {
+          await pool.execute(
+            'INSERT INTO imovel_fotos (imovel_id, url, ordem) VALUES (?, ?, ?)',
+            [params.id, fotos[i], i]
+          )
+        }
+      }
+    }
 
     // Forçar revalidação de cache
     revalidatePath('/')
