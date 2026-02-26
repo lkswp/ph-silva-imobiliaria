@@ -95,6 +95,9 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
               <option value="apartamento" className="bg-background text-white">Apartamento</option>
               <option value="terreno" className="bg-background text-white">Terreno</option>
               <option value="comercial" className="bg-background text-white">Comercial</option>
+              <option value="chacara" className="bg-background text-white">Chácara</option>
+              <option value="fazenda" className="bg-background text-white">Fazenda</option>
+              <option value="sitio" className="bg-background text-white">Sítio</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-neutral-400">
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>

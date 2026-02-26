@@ -1,4 +1,4 @@
-export type TipoImovel = 'casa' | 'apartamento' | 'terreno' | 'comercial'
+export type TipoImovel = 'casa' | 'apartamento' | 'terreno' | 'comercial' | 'chacara' | 'fazenda' | 'sitio'
 export type OperacaoImovel = 'venda' | 'aluguel'
 export type StatusImovel = 'disponivel' | 'reservado' | 'vendido'
 
@@ -22,6 +22,7 @@ export interface Imovel {
   banheiros: number | null
   vagas: number | null
   destaque: boolean
+  em_condominio?: boolean
   status: StatusImovel
   created_at: Date
   updated_at: Date

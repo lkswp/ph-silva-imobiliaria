@@ -6,7 +6,7 @@ import { z } from 'zod'
 const imovelSchema = z.object({
   titulo: z.string().min(1),
   descricao: z.string(),
-  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial']),
+  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial', 'chacara', 'fazenda', 'sitio']),
   operacao: z.enum(['venda', 'aluguel']),
   cidade: z.string().min(1),
   bairro: z.string().optional(),
@@ -20,8 +20,9 @@ const imovelSchema = z.object({
   area_construida: z.number().positive().nullable().optional(),
   quartos: z.number().int().positive().nullable().optional(),
   banheiros: z.number().int().positive().nullable().optional(),
-  vagas: z.number().int().positive().nullable().optional(),
-  destaque: z.boolean().optional(),
+  vagas: z.number().min(0).optional().nullable(),
+  destaque: z.boolean().optional().default(false),
+  em_condominio: z.boolean().optional().default(false),
   status: z.enum(['disponivel', 'reservado', 'vendido']).optional(),
   fotos: z.array(z.string()).optional(),
 })
@@ -150,11 +151,13 @@ export async function POST(request: NextRequest) {
       await connection.beginTransaction()
 
       const [result] = await connection.execute(
-        `INSERT INTO imoveis (
-          titulo, descricao, tipo, operacao, cidade, bairro, endereco, numero, cep,
-          latitude, longitude, preco, area_total, area_construida,
-          quartos, banheiros, vagas, destaque, status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `
+      INSERT INTO imoveis (
+        titulo, descricao, tipo, operacao, cidade, bairro, endereco, 
+        numero, cep, latitude, longitude, preco, area_total, 
+        area_construida, quartos, banheiros, vagas, destaque, em_condominio, status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
         [
           data.titulo,
           data.descricao || '',
@@ -173,7 +176,8 @@ export async function POST(request: NextRequest) {
           data.quartos || null,
           data.banheiros || null,
           data.vagas || null,
-          data.destaque || false,
+          data.destaque,
+          data.em_condominio,
           data.status || 'disponivel',
         ]
       ) as any

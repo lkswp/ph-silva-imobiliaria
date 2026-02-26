@@ -6,7 +6,7 @@ import { z } from 'zod'
 const imovelUpdateSchema = z.object({
   titulo: z.string().min(1).optional(),
   descricao: z.string().optional(),
-  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial']).optional(),
+  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial', 'chacara', 'fazenda', 'sitio']).optional(),
   operacao: z.enum(['venda', 'aluguel']).optional(),
   cidade: z.string().min(1).optional(),
   bairro: z.string().optional(),
@@ -22,6 +22,7 @@ const imovelUpdateSchema = z.object({
   banheiros: z.number().int().positive().nullable().optional(),
   vagas: z.number().int().positive().nullable().optional(),
   destaque: z.boolean().optional(),
+  em_condominio: z.boolean().optional(),
   status: z.enum(['disponivel', 'reservado', 'vendido']).optional(),
 })
 

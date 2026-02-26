@@ -12,7 +12,7 @@ import Button from '@/components/ui/Button'
 const imovelSchema = z.object({
   titulo: z.string().min(1, 'Título é obrigatório'),
   descricao: z.string(),
-  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial']),
+  tipo: z.enum(['casa', 'apartamento', 'terreno', 'comercial', 'chacara', 'fazenda', 'sitio']),
   operacao: z.enum(['venda', 'aluguel']),
   cidade: z.string().min(1, 'Cidade é obrigatória'),
   bairro: z.string().optional(),
@@ -28,6 +28,7 @@ const imovelSchema = z.object({
   banheiros: z.string().optional(),
   vagas: z.string().optional(),
   destaque: z.boolean().optional(),
+  em_condominio: z.boolean().optional(),
   status: z.enum(['disponivel', 'reservado', 'vendido']).optional(),
 })
 
@@ -70,6 +71,7 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
       banheiros: imovel.banheiros?.toString() || '',
       vagas: imovel.vagas?.toString() || '',
       destaque: imovel.destaque,
+      em_condominio: imovel.em_condominio,
       status: imovel.status,
     } : {},
   })
@@ -154,6 +156,9 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
             <option value="apartamento" className="text-neutral-900">Apartamento</option>
             <option value="terreno" className="text-neutral-900">Terreno</option>
             <option value="comercial" className="text-neutral-900">Comercial</option>
+            <option value="chacara" className="text-neutral-900">Chácara</option>
+            <option value="fazenda" className="text-neutral-900">Fazenda</option>
+            <option value="sitio" className="text-neutral-900">Sítio</option>
           </select>
         </div>
         <div>
@@ -278,13 +283,21 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
 
       <div className="flex flex-col sm:flex-row gap-6 p-6 bg-white/5 rounded-2xl border border-white/5">
         <div className="flex items-center">
-          <label className="flex items-center gap-3 cursor-pointer">
+          <label className="flex items-center gap-3 cursor-pointer mb-3">
             <input
               type="checkbox"
               {...register('destaque')}
-              className="w-5 h-5 rounded border-white/20 bg-white/5 text-primary focus:ring-primary"
+              className="w-5 h-5 rounded border-white/20 bg-white/5 text-primary focus:ring-primary focus:ring-offset-0 focus:ring-2 focus:outline-none transition-all shadow-glow accent-primary"
             />
-            <span className="text-white font-medium">Destacar no banner principal</span>
+            <span className="text-white font-medium">Destacar (Banner Principal)</span>
+          </label>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              {...register('em_condominio')}
+              className="w-5 h-5 rounded border-white/20 bg-white/5 text-secondary focus:ring-secondary focus:ring-offset-0 focus:ring-2 focus:outline-none transition-all shadow-glow accent-secondary"
+            />
+            <span className="text-white font-medium">Em Condomínio Fechado</span>
           </label>
         </div>
         <div className="flex-1 w-full max-w-xs">

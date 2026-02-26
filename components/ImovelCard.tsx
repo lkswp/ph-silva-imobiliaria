@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Imovel } from '@/types'
 import { formatCurrency } from '@/lib/utils'
-import { Bed, Bath, Car, Square } from 'lucide-react'
+import { Bed, Bath, Car, Square, ShieldCheck } from 'lucide-react'
 
 interface ImovelCardProps {
   imovel: Imovel
@@ -32,6 +32,12 @@ export default function ImovelCard({ imovel }: ImovelCardProps) {
             {imovel.destaque && (
               <span className="bg-secondary/90 backdrop-blur-md text-white border border-white/10 px-3 py-1.5 rounded-full text-xs font-semibold shadow-glass">
                 Destaque
+              </span>
+            )}
+            {imovel.em_condominio && (
+              <span className="bg-indigo-600/90 backdrop-blur-md text-white border border-indigo-400/30 px-3 py-1.5 rounded-full text-xs font-semibold shadow-[0_0_15px_rgba(79,70,229,0.5)] flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Condomínio
               </span>
             )}
           </div>

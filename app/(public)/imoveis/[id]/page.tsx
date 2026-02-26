@@ -9,7 +9,7 @@ import GaleriaFotos from '@/components/GaleriaFotos'
 import MapaLocalizacao from '@/components/MapaLocalizacao'
 import FormularioContato from '@/components/FormularioContato'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
-import { Bed, Bath, Car, Square, MapPin } from 'lucide-react'
+import { Bed, Bath, Car, Square, MapPin, ShieldCheck } from 'lucide-react'
 
 async function getImovel(id: number): Promise<Imovel | null> {
   try {
@@ -103,9 +103,15 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
               <ScrollReveal delay={0.1}>
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                   <div>
-                    <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-primary-light text-xs font-semibold tracking-wider uppercase mb-3">
+                    <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-primary-light text-xs font-semibold tracking-wider uppercase mb-3 mr-2">
                       {imovel.tipo} • {imovel.operacao === 'venda' ? 'Venda' : 'Aluguel'}
                     </span>
+                    {imovel.em_condominio && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-600/20 border border-indigo-500/50 rounded-full text-indigo-300 text-xs font-semibold tracking-wider uppercase mb-3 shadow-[0_0_10px_rgba(79,70,229,0.2)]">
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        Condomínio Fechado
+                      </span>
+                    )}
                     <h1 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-white leading-tight">
                       {imovel.titulo}
                     </h1>
