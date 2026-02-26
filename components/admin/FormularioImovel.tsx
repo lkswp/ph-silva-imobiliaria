@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { Imovel } from '@/types'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
+import { DndContext, closestCorners, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy } from '@dnd-kit/sortable'
 import { SortablePhoto } from './SortablePhoto'
 
@@ -108,9 +108,12 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
-        const response = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        const response = await fetch('/api/upload', {
           method: 'POST',
-          body: file,
+          body: formData,
         })
 
         if (!response.ok) throw new Error('Erro ao fazer upload')
@@ -299,7 +302,7 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
             </h4>
             <DndContext
               sensors={sensors}
-              collisionDetection={closestCenter}
+              collisionDetection={closestCorners}
               onDragEnd={handleDragEnd}
             >
               <SortableContext

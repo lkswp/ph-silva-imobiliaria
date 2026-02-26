@@ -10,6 +10,8 @@ import { SpotlightCard } from '@/components/ui/SpotlightCard'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { ShieldCheck, MapPin, Search, ArrowRight, UserCheck } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'PH SILVA Imobiliária - Imóveis em Igaratá, Santa Isabel e Mogi das Cruzes',
   description: 'Encontre o imóvel dos seus sonhos na região de São Paulo. Experiência premium em Igaratá, Santa Isabel, Mogi das Cruzes e arredores.',

@@ -11,6 +11,8 @@ import { Imovel, FiltrosImoveis as FiltrosType } from '@/types'
 import { AnimatedText } from '@/components/ui/AnimatedText'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Imóveis Disponíveis - PH SILVA Imobiliária',
   description: 'Encontre casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região.',
