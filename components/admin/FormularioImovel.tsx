@@ -77,21 +77,23 @@ export default function FormularioImovel({ imovel }: FormularioImovelProps) {
   })
 
   const handleFileUpload = async (files: FileList) => {
-    const formData = new FormData()
-    Array.from(files).forEach((file) => {
-      formData.append('files', file)
-    })
-
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
+      const newUrls: string[] = []
 
-      if (!response.ok) throw new Error('Erro ao fazer upload')
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        const response = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+          method: 'POST',
+          body: file,
+        })
 
-      const data = await response.json()
-      setFotos([...fotos, ...data.urls])
+        if (!response.ok) throw new Error('Erro ao fazer upload')
+
+        const data = await response.json()
+        newUrls.push(data.url)
+      }
+
+      setFotos((prevFotos) => [...prevFotos, ...newUrls])
     } catch (error) {
       setErro('Erro ao fazer upload das imagens')
     }
