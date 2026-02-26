@@ -37,7 +37,7 @@ async function getDestaques(): Promise<Imovel[]> {
 
     return rows.map((row: any) => ({
       ...row,
-      fotos: row.fotos_json ? JSON.parse(row.fotos_json) : [],
+      fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
     }))
   } catch (error) {
     console.error('Erro ao buscar imóveis em destaque:', error)

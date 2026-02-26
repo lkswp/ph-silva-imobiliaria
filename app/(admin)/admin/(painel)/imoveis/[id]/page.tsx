@@ -9,7 +9,7 @@ async function getImovel(id: number): Promise<Imovel | null> {
     const [rows] = await pool.execute(
       `SELECT i.*, 
         (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id, 'url', url, 'ordem', ordem))
-         FROM imovel_fotos WHERE imovel_id = i.id ORDER BY ordem) as fotos_json
+         FROM imovel_fotos WHERE imovel_id = i.id) as fotos_json
       FROM imoveis i 
       WHERE i.id = ?`,
       [id]
@@ -22,7 +22,7 @@ async function getImovel(id: number): Promise<Imovel | null> {
     const row = rows[0]
     return {
       ...row,
-      fotos: row.fotos_json ? JSON.parse(row.fotos_json) : [],
+      fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
     }
   } catch (error) {
     console.error('Erro ao buscar imóvel:', error)

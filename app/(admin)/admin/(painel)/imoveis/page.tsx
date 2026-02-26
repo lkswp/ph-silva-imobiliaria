@@ -8,14 +8,14 @@ async function getImoveis(): Promise<Imovel[]> {
   const [rows] = await pool.execute(
     `SELECT i.*, 
       (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id, 'url', url, 'ordem', ordem))
-       FROM imovel_fotos WHERE imovel_id = i.id ORDER BY ordem LIMIT 1) as fotos_json
+       FROM imovel_fotos WHERE imovel_id = i.id) as fotos_json
     FROM imoveis i 
     ORDER BY i.created_at DESC`
   ) as any[]
 
   return rows.map((row: any) => ({
     ...row,
-    fotos: row.fotos_json ? JSON.parse(row.fotos_json) : [],
+    fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
   }))
 }
 
@@ -86,8 +86,8 @@ export default async function AdminImoveisPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${imovel.status === 'disponivel' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
-                        imovel.status === 'reservado' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
-                          'bg-neutral-500/10 text-neutral-400 border border-neutral-500/20'
+                      imovel.status === 'reservado' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
+                        'bg-neutral-500/10 text-neutral-400 border border-neutral-500/20'
                       }`}>
                       {imovel.status === 'disponivel' ? 'Disponível' :
                         imovel.status === 'reservado' ? 'Reservado' : 'Vendido'}

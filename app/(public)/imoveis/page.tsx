@@ -102,7 +102,7 @@ async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; to
 
     const imoveis = rows.map((row: any) => ({
       ...row,
-      fotos: row.fotos_json ? JSON.parse(row.fotos_json) : [],
+      fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
     }))
 
     return { imoveis, total }

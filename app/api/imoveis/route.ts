@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     let query = `
       SELECT i.*, 
         (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id, 'url', url, 'ordem', ordem))
-         FROM imovel_fotos WHERE imovel_id = i.id ORDER BY ordem) as fotos_json
+         FROM imovel_fotos WHERE imovel_id = i.id) as fotos_json
       FROM imoveis i 
       WHERE 1=1
     `
@@ -114,7 +114,7 @@ export async function GET(request: NextRequest) {
 
     const imoveis = rows.map((row: any) => ({
       ...row,
-      fotos: row.fotos_json ? JSON.parse(row.fotos_json) : [],
+      fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
     }))
 
     return NextResponse.json({
