@@ -15,7 +15,7 @@ async function getImoveis(): Promise<Imovel[]> {
 
   return rows.map((row: any) => ({
     ...row,
-    fotos: row.fotos_json ? JSON.parse(row.fotos_json).sort((a: any, b: any) => a.ordem - b.ordem) : [],
+    fotos: row.fotos_json ? (typeof row.fotos_json === 'string' ? JSON.parse(row.fotos_json) : row.fotos_json).filter((f: any) => f && f.id).sort((a: any, b: any) => a.ordem - b.ordem) : [],
   }))
 }
 
