@@ -1,42 +1,37 @@
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
+import { put } from '@vercel/blob'
 import { NextRequest } from 'next/server'
 
 export async function saveUploadedFile(
   file: File,
   folder: string = 'imoveis'
 ): Promise<string> {
-  const bytes = await file.arrayBuffer()
-  const buffer = Buffer.from(bytes)
-
-  // Criar pasta se não existir
-  const uploadDir = join(process.cwd(), 'public', 'uploads', folder)
-  await mkdir(uploadDir, { recursive: true })
-
-  // Gerar nome único
+  // Gerar nome único para o Vercel Blob
   const timestamp = Date.now()
-  const randomStr = Math.random().toString(36).substring(2, 15)
+  const randomStr = Math.random().toString(36).substring(2, 8)
   const extension = file.name.split('.').pop()
-  const filename = `${timestamp}-${randomStr}.${extension}`
+  const filename = `${folder}/${timestamp}-${randomStr}.${extension}`
 
-  const filepath = join(uploadDir, filename)
-  await writeFile(filepath, buffer)
+  // Envia diretamente para a nuvem da Vercel (Blob Storage)
+  const blob = await put(filename, file, {
+    access: 'public',
+  })
 
-  return `/uploads/${folder}/${filename}`
+  // Retorna a URL pública HTTPS pronta para ser salva no banco de dados e usada no <img>
+  return blob.url
 }
 
 export async function handleFileUpload(request: NextRequest): Promise<string[]> {
   const formData = await request.formData()
   const files = formData.getAll('files') as File[]
-  
+
   const urls: string[] = []
-  
+
   for (const file of files) {
     if (file.size > 0) {
       const url = await saveUploadedFile(file)
       urls.push(url)
     }
   }
-  
+
   return urls
 }
