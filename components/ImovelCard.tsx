@@ -50,27 +50,27 @@ export default function ImovelCard({ imovel }: ImovelCardProps) {
             {imovel.bairro}, {imovel.cidade}
           </p>
 
-          <div className="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-neutral-300 mb-6">
+          <div className="flex flex-wrap items-center gap-y-3 gap-x-4 text-xs sm:text-sm text-neutral-300 mb-6">
             {imovel.quartos != null && (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <Bed className="w-4 h-4 text-neutral-500" />
                 <span>{imovel.quartos} {imovel.quartos === 1 ? 'quarto' : 'quartos'}</span>
               </span>
             )}
             {imovel.banheiros != null && (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <Bath className="w-4 h-4 text-neutral-500" />
                 <span>{imovel.banheiros} {imovel.banheiros === 1 ? 'banho' : 'banhos'}</span>
               </span>
             )}
             {imovel.vagas != null && (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <Car className="w-4 h-4 text-neutral-500" />
                 <span>{imovel.vagas} {imovel.vagas === 1 ? 'vaga' : 'vagas'}</span>
               </span>
             )}
             {imovel.area_total != null && (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 <Square className="w-4 h-4 text-neutral-500" />
                 <span>{imovel.area_total} m²</span>
               </span>

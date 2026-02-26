@@ -186,7 +186,7 @@ export default function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden border-t border-white/10 mt-4 bg-background-light/95 backdrop-blur-2xl rounded-b-2xl shadow-glass mx-[-24px] px-6 pb-6 relative z-50"
+              className="md:hidden overflow-hidden border-t border-white/10 mt-4 bg-background border-b border-white/10 shadow-glass absolute top-full left-0 w-full px-6 pb-6 z-50 origin-top"
             >
               <ul className="flex flex-col py-4 gap-2">
                 <li>

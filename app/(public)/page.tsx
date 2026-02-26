@@ -67,7 +67,7 @@ export default async function HomePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 blur-[130px] rounded-full animate-blob pointer-events-none mix-blend-screen" />
         <div className="absolute top-[40%] left-[30%] w-[600px] h-[600px] bg-secondary/10 blur-[120px] rounded-full animate-blob animation-delay-2000 pointer-events-none mix-blend-screen" />
 
-        <div className="container relative z-10 mx-auto px-6 max-w-5xl">
+        <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-5xl">
           <div className="text-center mb-12">
             <AnimatedText
               text={["O Imóvel Perfeito", "Para Uma Vida Extraordinária"]}
@@ -102,7 +102,7 @@ export default async function HomePage() {
 
       {/* Popular Searches */}
       <section className="py-20 bg-background-lighter relative border-y border-white/5">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
               <h2 className="text-2xl md:text-3xl font-bold font-heading text-white bg-clip-text">
@@ -133,7 +133,7 @@ export default async function HomePage() {
       {/* Featured Properties */}
       {destaques.length > 0 && (
         <section className="py-32 relative">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 md:px-6">
             <ScrollReveal>
               <div className="text-center max-w-2xl mx-auto mb-16">
                 <span className="text-primary font-semibold tracking-wider uppercase text-xs md:text-sm mb-3 block">Seleção Exclusiva</span>
@@ -172,7 +172,7 @@ export default async function HomePage() {
       <section className="py-32 bg-background-lighter border-y border-white/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-20">
               <span className="text-secondary font-semibold tracking-wider uppercase text-sm mb-3 block">Excelência e Tradição</span>
@@ -224,7 +224,7 @@ export default async function HomePage() {
 
       {/* Locations */}
       <section className="py-32 relative">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal>
             <h2 className="text-3xl md:text-5xl font-bold font-heading text-center text-white mb-16">
               Regiões de Atuação
@@ -253,7 +253,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-primary-light" />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay" />
 
-        <div className="container mx-auto px-6 relative z-10 text-center">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
           <ScrollReveal>
             <h2 className="text-3xl md:text-5xl font-bold font-heading text-white mb-6">
               Pronto para Dar o Próximo Passo?

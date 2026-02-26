@@ -177,16 +177,18 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
           </ScrollReveal>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <aside className="hidden lg:block lg:col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10">
+          <aside className="hidden md:block md:col-span-4 lg:col-span-3">
             <Suspense fallback={<div className="text-neutral-500 text-sm">Carregando filtros...</div>}>
               <FiltrosImoveisWrapper regioes={regioes} />
             </Suspense>
           </aside>
 
-          <main className="lg:col-span-9">
+          <main className="md:col-span-8 lg:col-span-9">
             <Suspense fallback={null}>
-              <FiltrosDrawerMobile regioes={regioes} />
+              <div className="md:hidden">
+                <FiltrosDrawerMobile regioes={regioes} />
+              </div>
             </Suspense>
 
             {imoveis.length === 0 ? (
@@ -219,7 +221,7 @@ export default async function ImoveisPage({ searchParams }: PageProps) {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {imoveis.map((imovel, i) => (
                     <ScrollReveal key={imovel.id} delay={i * 0.1}>
                       <ImovelCard imovel={imovel} />

@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-background overflow-hidden border-t border-white/5 pt-20">
-      <div className="container mx-auto px-6 pb-12 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 pb-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
 
           {/* Brand Col */}
@@ -109,7 +109,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col-reverse justify-center md:flex-row items-center md:justify-between gap-6 text-center md:text-left">
           <p className="text-neutral-500 text-sm">
             &copy; {currentYear} PH SILVA Imobiliária. Todos os direitos reservados.
           </p>

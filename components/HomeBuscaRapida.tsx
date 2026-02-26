@@ -70,7 +70,7 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
             <select
               value={cidade}
               onChange={(e) => setCidade(e.target.value)}
-              className="w-full px-4 py-4 appearance-none border border-white/10 rounded-xl text-white bg-white/5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
+              className="w-full px-4 py-4 appearance-none border border-white/10 rounded-xl text-base text-white bg-white/5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
             >
               <option value="" className="bg-background text-white">Todas as regiões</option>
               {regioes.map((reg) => (
@@ -88,7 +88,7 @@ export default function HomeBuscaRapida({ variant = 'default', regioes = [] }: H
             <select
               value={tipo}
               onChange={(e) => setTipo(e.target.value)}
-              className="w-full px-4 py-4 appearance-none border border-white/10 rounded-xl text-white bg-white/5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
+              className="w-full px-4 py-4 appearance-none border border-white/10 rounded-xl text-base text-white bg-white/5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent transition-all"
             >
               <option value="" className="bg-background text-white">Todos os tipos</option>
               <option value="casa" className="bg-background text-white">Casa</option>

@@ -82,7 +82,7 @@ export default function FormularioContato() {
           <input
             {...register('nome')}
             id="nome"
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
             placeholder="Seu nome"
           />
           {errors.nome && (
@@ -99,7 +99,7 @@ export default function FormularioContato() {
               {...register('email')}
               id="email"
               type="email"
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               placeholder="seu@email.com"
             />
             {errors.email && (
@@ -114,7 +114,7 @@ export default function FormularioContato() {
             <input
               {...register('telefone')}
               id="telefone"
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               placeholder="(11) 99999-9999"
             />
             {errors.telefone && (
@@ -131,7 +131,7 @@ export default function FormularioContato() {
             {...register('mensagem')}
             id="mensagem"
             rows={5}
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
             placeholder="Ex: Procuro uma casa em Igaratá com vista para a represa..."
           />
           {errors.mensagem && (

@@ -124,7 +124,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 p-6 bg-background-lighter rounded-3xl border border-white/5 shadow-glass">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 p-4 md:p-6 bg-background-lighter rounded-3xl border border-white/5 shadow-glass">
                   {imovel.quartos != null && (
                     <div className="flex flex-col items-center justify-center p-2">
                       <Bed className="w-6 h-6 text-primary-light mb-2" />
@@ -163,14 +163,14 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <section className="mb-10 bg-background-lighter rounded-3xl p-8 border border-white/5 shadow-glass">
+                <section className="mb-10 bg-background-lighter rounded-3xl p-5 md:p-8 border border-white/5 shadow-glass">
                   <h2 className="text-xl font-bold font-heading mb-6 text-white border-b border-white/5 pb-4">Detalhes da Propriedade</h2>
                   <p className="text-neutral-400 whitespace-pre-line leading-relaxed">{imovel.descricao}</p>
                 </section>
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
-                <section className="mb-10 bg-background-lighter rounded-3xl p-8 border border-white/5 shadow-glass">
+                <section className="mb-10 bg-background-lighter rounded-3xl p-5 md:p-8 border border-white/5 shadow-glass">
                   <h2 className="text-xl font-bold font-heading mb-6 text-white border-b border-white/5 pb-4">Localização & Dados</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
@@ -199,7 +199,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
 
               {imovel.latitude != null && imovel.longitude != null && (
                 <ScrollReveal delay={0.4}>
-                  <section className="mb-10 bg-background-lighter rounded-3xl p-8 border border-white/5 shadow-glass">
+                  <section className="mb-10 bg-background-lighter rounded-3xl p-5 md:p-8 border border-white/5 shadow-glass">
                     <h2 className="text-xl font-bold font-heading mb-6 text-white border-b border-white/5 pb-4">Mapa Mapeamento</h2>
                     <div className="rounded-2xl overflow-hidden border border-white/10 shadow-inner h-[400px]">
                       <MapaLocalizacao
@@ -216,7 +216,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
 
           <aside className="lg:col-span-4 lg:sticky lg:top-32 self-start">
             <ScrollReveal delay={0.3}>
-              <div className="bg-background-lighter p-8 rounded-3xl shadow-glow border border-primary/20 relative overflow-hidden">
+              <div className="bg-background-lighter p-6 md:p-8 rounded-3xl shadow-glow border border-primary/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[50px] rounded-full pointer-events-none" />
                 <h3 className="text-2xl font-bold font-heading mb-2 text-white relative z-10">Negocie este Imóvel</h3>
                 <p className="text-neutral-400 text-sm mb-8 relative z-10">
