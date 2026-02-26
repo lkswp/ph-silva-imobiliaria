@@ -96,13 +96,16 @@ export default function Footer() {
               <li>
                 <div className="group flex items-start gap-3 text-neutral-400 text-sm transition-colors hover:text-white">
                   <Phone className="w-5 h-5 text-primary group-hover:text-primary-light transition-colors" />
-                  <span>(11) 99999-9999</span>
+                  <div className="flex flex-col">
+                    <span>(11) 99562-2068</span>
+                    <span>(11) 97542-0137</span>
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="group flex items-start gap-3 text-neutral-400 text-sm transition-colors hover:text-white">
-                  <MapPin className="w-5 h-5 text-primary group-hover:text-primary-light transition-colors" />
-                  <span>Av. Principal, 1000 - Centro<br />Igaratá - SP</span>
+                  <MapPin className="min-w-5 w-5 h-5 text-primary group-hover:text-primary-light transition-colors mt-0.5" />
+                  <span className="leading-relaxed">Av. Cel. Bertoldo, 114 - sala 2<br />Parque São Benedito<br />Santa Isabel - SP, 07500-000</span>
                 </div>
               </li>
             </ul>

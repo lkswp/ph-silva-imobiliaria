@@ -3,7 +3,7 @@
 import { getWhatsAppLink } from '@/lib/utils'
 
 export default function WhatsAppButton() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511999999999'
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511995622068'
   const message = 'Olá! Gostaria de saber mais sobre os imóveis disponíveis.'
 
   return (

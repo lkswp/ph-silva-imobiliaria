@@ -54,8 +54,11 @@ export default function ContatoPage() {
                       <Phone className="w-5 h-5 text-neutral-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-neutral-500 font-medium mb-1">Telefone Fixo</p>
-                      <a href="tel:+5511999999999" className="text-white hover:text-neutral-300 transition-colors">(11) 99999-9999</a>
+                      <p className="text-sm text-neutral-500 font-medium mb-1">Telefones</p>
+                      <div className="flex flex-col gap-1">
+                        <a href="tel:+5511995622068" className="text-white hover:text-neutral-300 transition-colors">(11) 99562-2068</a>
+                        <a href="tel:+5511975420137" className="text-white hover:text-neutral-300 transition-colors">(11) 97542-0137</a>
+                      </div>
                     </div>
                   </div>
                 </SpotlightCard>
@@ -67,9 +70,14 @@ export default function ContatoPage() {
                     </div>
                     <div>
                       <p className="text-sm text-neutral-500 font-medium mb-1">Atendimento Rápido via WhatsApp</p>
-                      <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-bold hover:text-emerald-300 transition-colors">
-                        (11) 99999-9999
-                      </a>
+                      <div className="flex flex-col gap-1 mt-1">
+                        <a href="https://wa.me/5511995622068" target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-bold hover:text-emerald-300 transition-colors">
+                          (11) 99562-2068
+                        </a>
+                        <a href="https://wa.me/5511975420137" target="_blank" rel="noopener noreferrer" className="text-emerald-400 font-bold hover:text-emerald-300 transition-colors">
+                          (11) 97542-0137
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </SpotlightCard>
@@ -80,8 +88,8 @@ export default function ContatoPage() {
                       <MapPin className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <p className="text-sm text-neutral-500 font-medium mb-1">Sede</p>
-                      <p className="text-white">Igaratá - SP (Atendimento mediante agendamento)</p>
+                      <p className="text-sm text-neutral-500 font-medium mb-1">Endereço</p>
+                      <p className="text-white leading-relaxed">Av. Cel. Bertoldo, 114 - sala 2<br />Parque São Benedito<br />Santa Isabel - SP, 07500-000</p>
                     </div>
                   </div>
                 </SpotlightCard>

@@ -27,7 +27,7 @@ export default async function PainelLayout({
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/10 blur-[150px] rounded-full mix-blend-screen pointer-events-none" />
 
       <Sidebar />
-      <main className="ml-0 lg:ml-72 p-6 md:p-10 relative z-10 transition-all duration-300">
+      <main className="ml-0 lg:ml-72 p-6 pt-28 md:p-10 md:pt-32 relative z-10 transition-all duration-300">
         {children}
       </main>
     </div>

@@ -71,7 +71,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
     notFound()
   }
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511999999999'
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511995622068'
   const whatsappMessage = `Olá! Tenho interesse no imóvel: ${imovel.titulo} - ${formatCurrency(imovel.preco)}`
 
   return (
