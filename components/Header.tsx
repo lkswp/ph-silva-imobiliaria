@@ -7,13 +7,14 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-
 import { cn } from '@/lib/utils'
 import { Menu, X, ChevronDown, Building2, Phone } from 'lucide-react'
 import Image from 'next/image'
-import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/nextjs'
-
+import { SignedIn, SignedOut, UserButton, SignInButton, useUser } from '@clerk/nextjs'
 export default function Header() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [imoveisOpen, setImoveisOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { user } = useUser()
+  const isAdmin = (user?.publicMetadata as any)?.role === 'admin'
 
   const [isScrolled, setIsScrolled] = useState(false)
   const { scrollY } = useScroll()
@@ -154,9 +155,11 @@ export default function Header() {
 
             <SignedIn>
               <div className="flex items-center justify-center bg-white/5 border border-white/10 rounded-full p-1 pl-4 gap-3">
-                <Link href="/conta" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">
-                  Painel
-                </Link>
+                {isAdmin && (
+                  <Link href="/admin/dashboard" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors border-r border-white/10 pr-3">
+                    Painel
+                  </Link>
+                )}
                 <UserButton afterSignOutUrl="/" />
               </div>
             </SignedIn>
@@ -241,9 +244,13 @@ export default function Header() {
                 <li className="mt-4 pt-4 border-t border-white/10 px-4">
                   <SignedIn>
                     <div className="flex items-center justify-between">
-                      <Link href="/conta" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-white">
-                        Painel Administrativo
-                      </Link>
+                      {isAdmin ? (
+                        <Link href="/admin/dashboard" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-white">
+                          Painel Administrativo
+                        </Link>
+                      ) : (
+                        <span className="text-sm font-medium text-neutral-400">Minha Conta</span>
+                      )}
                       <UserButton afterSignOutUrl="/" />
                     </div>
                   </SignedIn>
