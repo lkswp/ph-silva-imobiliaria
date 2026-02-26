@@ -162,11 +162,9 @@ export default function Header() {
             </SignedIn>
 
             <SignedOut>
-              <SignInButton mode="modal">
-                <button className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                  Entrar
-                </button>
-              </SignInButton>
+              <Link href="/login" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                Entrar
+              </Link>
             </SignedOut>
           </nav>
 
@@ -250,11 +248,9 @@ export default function Header() {
                     </div>
                   </SignedIn>
                   <SignedOut>
-                    <SignInButton mode="modal">
-                      <button className="w-full rounded-xl bg-white/5 border border-white/10 py-3 text-sm font-medium text-white mb-2">
-                        Fazer Login
-                      </button>
-                    </SignInButton>
+                    <Link href="/login" onClick={() => setMobileOpen(false)} className="block w-full text-center rounded-xl bg-white/5 border border-white/10 py-3 text-sm font-medium text-white mb-2 hover:bg-white/10 transition-colors">
+                      Fazer Login
+                    </Link>
                   </SignedOut>
                 </li>
               </ul>
