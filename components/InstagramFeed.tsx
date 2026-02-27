@@ -4,9 +4,9 @@ import { ScrollReveal } from './ui/ScrollReveal'
 
 export default function InstagramFeed() {
     const videoUrls = [
-        'https://www.instagram.com/reel/DEvH8iWPTkP/embed',
-        'https://www.instagram.com/reel/C7rA-YIvkWe/embed',
-        'https://www.instagram.com/reel/C-Dk1e4vyB7/embed'
+        'https://www.instagram.com/reel/DMbHvraO92K/embed',
+        'https://www.instagram.com/reel/DK22AMHOoLk/embed',
+        'https://www.instagram.com/reel/DLdd-YIOrq-/embed'
     ]
 
     return (
