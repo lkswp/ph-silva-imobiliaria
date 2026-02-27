@@ -30,10 +30,10 @@ export default function Footer() {
               Sua imobiliária de confiança na região de São Paulo. Experiência premium, atendimento exclusivo e as melhores oportunidades do mercado.
             </p>
             <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:bg-primary hover:text-white transition-all hover:shadow-glow">
+              <a href="https://www.instagram.com/phsilvaimoveis/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:bg-primary hover:text-white transition-all hover:shadow-glow">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:bg-primary hover:text-white transition-all hover:shadow-glow">
+              <a href="https://www.facebook.com/profile.php?id=100095425398782" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-neutral-400 hover:bg-primary hover:text-white transition-all hover:shadow-glow">
                 <Facebook className="w-4 h-4" />
               </a>
             </div>

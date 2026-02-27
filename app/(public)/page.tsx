@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import Button from '@/components/ui/Button'
 import ImovelCard from '@/components/ImovelCard'
 import HomeBuscaRapida from '@/components/HomeBuscaRapida'
+import InstagramFeed from '@/components/InstagramFeed'
 import { getDbPool } from '@/lib/db'
 import { Imovel } from '@/types'
 import { AnimatedText } from '@/components/ui/AnimatedText'
@@ -249,6 +250,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Instagram Feed */}
+      <InstagramFeed />
 
       {/* Call to Action CTA */}
       <section className="py-24 relative overflow-hidden">

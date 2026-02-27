@@ -80,7 +80,7 @@ export default function Header() {
             <Link
               href="/"
               className={cn(
-                'text-sm font-medium transition-colors hover:text-white',
+                'text-sm font-medium transition-colors hover:text-white lg:hidden',
                 pathname === '/' ? 'text-white' : 'text-neutral-400'
               )}
             >
@@ -135,15 +135,7 @@ export default function Header() {
               Sobre
             </Link>
 
-            <Link
-              href="/contato"
-              className={cn(
-                'text-sm font-medium transition-colors hover:text-white',
-                pathname === '/contato' ? 'text-white' : 'text-neutral-400'
-              )}
-            >
-              Contato
-            </Link>
+            {/* Contato removed here as requested logic is to merge to the CTA */}
 
             <Link
               href="/contato"
