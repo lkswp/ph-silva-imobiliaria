@@ -106,7 +106,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
                     <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-primary-light text-xs font-semibold tracking-wider uppercase mb-3 mr-2">
                       {imovel.tipo} • {imovel.operacao === 'venda' ? 'Venda' : 'Aluguel'}
                     </span>
-                    {imovel.em_condominio && (
+                    {!!imovel.em_condominio && (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-600/20 border border-indigo-500/50 rounded-full text-indigo-300 text-xs font-semibold tracking-wider uppercase mb-3 shadow-[0_0_10px_rgba(79,70,229,0.2)]">
                         <ShieldCheck className="w-3.5 h-3.5" />
                         Condomínio Fechado
@@ -118,7 +118,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
                     <div className="flex items-center gap-2 text-neutral-400">
                       <MapPin className="w-4 h-4 text-primary" />
                       <p>
-                        {imovel.bairro}, {imovel.cidade}
+                        {[imovel.bairro, imovel.cidade].filter(Boolean).join(', ')}
                       </p>
                     </div>
                   </div>
@@ -193,8 +193,8 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
                       <ul className="space-y-3 text-neutral-400">
                         <li><span className="text-neutral-500">Tipo:</span> {imovel.tipo}</li>
                         <li><span className="text-neutral-500">Disponibilidade:</span> {imovel.status === 'disponivel' ? 'Disponível' : imovel.status}</li>
-                        {imovel.area_construida != null && (
-                          <li><span className="text-neutral-500">Área Construída:</span> {imovel.area_construida} m²</li>
+                        {imovel.area_total != null && (
+                          <li><span className="text-neutral-500">Área Total:</span> {imovel.area_total} m²</li>
                         )}
                         <li><span className="text-neutral-500">Referência:</span> ID {imovel.id}</li>
                       </ul>
