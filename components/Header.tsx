@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { Menu, X, ChevronDown, Building2, Phone } from 'lucide-react'
+import { Menu, X, ChevronDown, Building2, Phone, Instagram, Facebook } from 'lucide-react'
 import Image from 'next/image'
 import { SignedIn, SignedOut, UserButton, SignInButton, useUser } from '@clerk/nextjs'
 export default function Header() {
@@ -153,6 +153,17 @@ export default function Header() {
               <span>Fale Conosco</span>
             </Link>
 
+            <div className="flex items-center gap-1 border-l border-white/10 pl-5 ml-1 hidden lg:flex">
+              <a href="https://www.instagram.com/phsilvaimoveis/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors p-2 mb-0 hover:bg-white/5 rounded-full">
+                <Instagram className="w-4 h-4" />
+                <span className="sr-only">Instagram</span>
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=100095425398782" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors p-2 mb-0 hover:bg-white/5 rounded-full">
+                <Facebook className="w-4 h-4" />
+                <span className="sr-only">Facebook</span>
+              </a>
+            </div>
+
             <SignedIn>
               <div className="flex items-center justify-center bg-white/5 border border-white/10 rounded-full p-1 pl-4 gap-3">
                 {isAdmin && (
@@ -241,7 +252,17 @@ export default function Header() {
                   </Link>
                 </li>
 
-                <li className="mt-4 pt-4 border-t border-white/10 px-4">
+                <li className="mt-2 mb-2 px-4 flex items-center justify-center gap-4">
+                  <a href="https://www.instagram.com/phsilvaimoveis/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors p-3 bg-white/5 rounded-full hover:bg-white/10">
+                    <Instagram className="w-5 h-5" />
+                    <span className="sr-only">Instagram</span>
+                  </a>
+                  <a href="https://www.facebook.com/profile.php?id=100095425398782" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors p-3 bg-white/5 rounded-full hover:bg-white/10">
+                    <Facebook className="w-5 h-5" />
+                    <span className="sr-only">Facebook</span>
+                  </a>
+                </li>
+                <li className="pt-4 border-t border-white/10 px-4">
                   <SignedIn>
                     <div className="flex items-center justify-between">
                       {isAdmin ? (
