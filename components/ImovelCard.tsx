@@ -53,7 +53,7 @@ export default function ImovelCard({ imovel }: ImovelCardProps) {
           </h3>
 
           <p className="text-neutral-400 text-sm mb-6 line-clamp-1">
-            {imovel.bairro}, {imovel.cidade}
+            {[imovel.bairro, imovel.cidade].filter(Boolean).join(', ')}
           </p>
 
           <div className="flex flex-wrap items-center gap-y-3 gap-x-4 text-xs sm:text-sm text-neutral-300 mb-6">
