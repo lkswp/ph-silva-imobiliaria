@@ -81,7 +81,7 @@ async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; to
     }
 
     // Contar total
-    const countQuery = query.replace(/SELECT i\.\*,.*?FROM/, 'SELECT COUNT(*) as total FROM')
+    const countQuery = query.replace(/SELECT i\.\*,[\s\S]*?FROM imoveis i/, 'SELECT COUNT(*) as total FROM imoveis i')
     const [countRows] = await pool.execute(countQuery, params) as any[]
     const total = countRows[0]?.total || 0
 
@@ -95,8 +95,7 @@ async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; to
     } else {
       query += ' ORDER BY i.destaque DESC, i.created_at DESC'
     }
-    query += ' LIMIT ? OFFSET ?'
-    params.push(limit, offset)
+    query += ` LIMIT ${limit} OFFSET ${offset}`
 
     const [rows] = await pool.execute(query, params) as any[]
 

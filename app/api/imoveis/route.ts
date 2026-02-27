@@ -102,13 +102,14 @@ export async function GET(request: NextRequest) {
     }
 
     // Contar total
-    const countQuery = query.replace(/SELECT i\.\*,.*?FROM/, 'SELECT COUNT(*) as total FROM')
+    const countQuery = query.replace(/SELECT i\.\*,[\s\S]*?FROM imoveis i/, 'SELECT COUNT(*) as total FROM imoveis i')
     const [countRows] = await pool.execute(countQuery, params) as any[]
     const total = countRows[0]?.total || 0
 
     // Buscar imóveis
-    query += ' ORDER BY i.destaque DESC, i.created_at DESC LIMIT ? OFFSET ?'
-    params.push(limit, offset)
+    query += ` ORDER BY i.destaque DESC, i.created_at DESC LIMIT ${limit} OFFSET ${offset}`
+
+
 
     const [rows] = await pool.execute(query, params) as any[]
 
