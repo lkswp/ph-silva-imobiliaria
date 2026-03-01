@@ -54,10 +54,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${imovel.titulo} - PH SILVA Imobiliária`,
+    title: `${imovel.tipo} em ${imovel.cidade} - ${imovel.titulo} | PH SILVA Imóveis`,
     description: imovel.descricao.substring(0, 160),
     openGraph: {
-      title: imovel.titulo,
+      title: `${imovel.tipo} em ${imovel.cidade} - ${imovel.titulo} | PH SILVA Imóveis`,
       description: imovel.descricao.substring(0, 160),
       images: imovel.fotos && imovel.fotos.length > 0 ? [imovel.fotos[0].url] : [],
     },
@@ -113,7 +113,7 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
                       </span>
                     )}
                     <h1 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-white leading-tight">
-                      {imovel.titulo}
+                      {imovel.tipo} em {imovel.cidade} - {imovel.titulo}
                     </h1>
                     <div className="flex items-center gap-2 text-neutral-400">
                       <MapPin className="w-4 h-4 text-primary" />
@@ -256,9 +256,11 @@ export default async function ImovelDetalhesPage({ params }: PageProps) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'Product',
-              name: imovel.titulo,
+              '@type': 'RealEstateListing',
+              name: `${imovel.tipo} em ${imovel.cidade} - ${imovel.titulo}`,
               description: imovel.descricao,
+              image: imovel.fotos && imovel.fotos.length > 0 ? imovel.fotos.map(f => f.url) : [],
+              datePosted: imovel.created_at,
               offers: {
                 '@type': 'Offer',
                 price: imovel.preco,

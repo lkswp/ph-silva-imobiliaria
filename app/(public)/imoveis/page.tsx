@@ -13,9 +13,22 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 export const dynamic = 'force-dynamic'
 
-export const metadata: Metadata = {
-  title: 'Imóveis Disponíveis - PH SILVA Imobiliária',
-  description: 'Encontre casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região.',
+export async function generateMetadata({ searchParams }: { searchParams: { cidade?: string, tipo?: string, operacao?: string } }): Promise<Metadata> {
+  const cidadeStr = searchParams.cidade ? searchParams.cidade.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
+  const tipoStr = searchParams.tipo ? searchParams.tipo.charAt(0).toUpperCase() + searchParams.tipo.slice(1) : 'Imóveis';
+  const opStr = searchParams.operacao === 'aluguel' ? 'para Alugar' : 'à Venda';
+
+  if (cidadeStr) {
+    return {
+      title: `${tipoStr} ${opStr} em ${cidadeStr} - PH SILVA Imóveis`,
+      description: `Encontre os melhores ${tipoStr.toLowerCase()} ${opStr.toLowerCase()} em ${cidadeStr}. A PH SILVA Imóveis é sua imobiliária de confiança na região.`,
+    }
+  }
+
+  return {
+    title: 'Imóveis Disponíveis em Santa Isabel, Igaratá e Região - PH SILVA Imobiliária',
+    description: 'Encontre excelentes casas, chácaras, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e região.',
+  }
 }
 
 async function getImoveis(filtros: FiltrosType): Promise<{ imoveis: Imovel[]; total: number }> {

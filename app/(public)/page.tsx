@@ -14,11 +14,11 @@ import { ShieldCheck, MapPin, Search, ArrowRight, UserCheck } from 'lucide-react
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'PH SILVA Imobiliária - Imóveis em Igaratá, Santa Isabel e Mogi das Cruzes',
-  description: 'Encontre o imóvel dos seus sonhos na região de São Paulo. Experiência premium em Igaratá, Santa Isabel, Mogi das Cruzes e arredores.',
+  title: 'PH SILVA Imóveis - Sua Imobiliária em Santa Isabel, Igaratá e Região',
+  description: 'Procurando imobiliária em Santa Isabel ou Igaratá? A PH SILVA Imóveis tem as melhores casas, sítios e terrenos da região com atendimento premium.',
   openGraph: {
-    title: 'PH SILVA Imobiliária Premium',
-    description: 'Sua imobiliária de confiança na região de São Paulo',
+    title: 'PH SILVA Imóveis - Santa Isabel e Igaratá',
+    description: 'A imobiliária de referência em Santa Isabel e Igaratá.',
     type: 'website',
   },
 }
@@ -79,7 +79,7 @@ export default async function HomePage() {
             />
             <ScrollReveal delay={0.3}>
               <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-                Descubra residências exclusivas, coberturas luxuosas e terrenos premium em Igaratá, Santa Isabel e região.
+                Descubra residências exclusivas, coberturas luxuosas e terrenos premium. A sua imobiliária de confiança em Santa Isabel, Igaratá e região.
               </p>
             </ScrollReveal>
           </div>
@@ -280,9 +280,15 @@ export default async function HomePage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'RealEstateAgent',
-            name: 'PH SILVA Imobiliária Premium',
-            description: 'Imobiliária especializada em imóveis de alto padrão na região de São Paulo',
-            areaServed: regioes.map((r: any) => ({ '@type': 'City', name: r.nome })),
+            name: 'PH SILVA Imóveis',
+            description: 'Imobiliária especializada em Santa Isabel, Igaratá e região. Venda de casas, chácaras de alto padrão e terrenos.',
+            url: process.env.NEXT_PUBLIC_SITE_URL || 'https://phsilva.com.br',
+            areaServed: [
+              { '@type': 'City', name: 'Santa Isabel', sameAs: 'https://pt.wikipedia.org/wiki/Santa_Isabel_(S%C3%A3o_Paulo)' },
+              { '@type': 'City', name: 'Igaratá', sameAs: 'https://pt.wikipedia.org/wiki/Igarat%C3%A1' },
+              ...regioes.map((r: any) => ({ '@type': 'City', name: r.nome }))
+            ],
+            priceRange: '$$$',
           }),
         }}
       />

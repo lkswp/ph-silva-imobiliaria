@@ -9,9 +9,14 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-plus-jakarta' })
 
 export const metadata: Metadata = {
-  title: 'PH SILVA Imobiliária - Imóveis em Igaratá, Santa Isabel e Mogi das Cruzes',
-  description: 'Encontre o imóvel dos seus sonhos na região de São Paulo. Casas, apartamentos e terrenos em Igaratá, Santa Isabel, Mogi das Cruzes e arredores.',
-  keywords: 'imóveis, casas, apartamentos, terrenos, Igaratá, Santa Isabel, Mogi das Cruzes, venda, aluguel',
+  title: 'PH SILVA Imóveis - A Melhor Imobiliária em Santa Isabel e Igaratá',
+  description: 'Conheça a PH SILVA Imóveis, sua imobiliária de confiança em Santa Isabel, Igaratá e Mogi das Cruzes. Encontre casas de alto padrão, terrenos e apartamentos com assessoria completa.',
+  keywords: 'imobiliária em Santa Isabel, imobiliária em Igaratá, imóveis santa isabel, chácaras igaratá, casas de luxo, terrenos, venda, aluguel, mogi das cruzes',
+  openGraph: {
+    title: 'PH SILVA Imóveis - Imobiliária em Santa Isabel e Igaratá',
+    description: 'Encontre o imóvel dos seus sonhos na melhor imobiliária de Santa Isabel e Igaratá.',
+    type: 'website',
+  },
 }
 
 import { ClerkProvider } from '@clerk/nextjs'
